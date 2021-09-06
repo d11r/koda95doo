@@ -1,27 +1,49 @@
+import { ReactNode } from 'react';
+
 import { VerticalFeatureRow } from '../feature/VerticalFeatureRow';
 import { Section } from '../layout/Section';
 
+const StepNumber = ({ children }: { children: ReactNode }) => {
+  return <span className="text-primary-500">{children}</span>;
+};
+
 const VerticalFeatures = () => (
   <Section
-    title="Your title here"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus malesuada nisi tellus, non imperdiet nisi tempor at."
+    customTitle={
+      <h2 className="text-4xl text-gray-900 font-bold">
+        Do posla u <StepNumber>3</StepNumber> koraka
+      </h2>
+    }
+    description="Nakon što ispunite prijavu koja uključuje Vaše iskustvo, želje i očekivanja, mi radimo sve što je u našoj moći da Vas spojimo sa poslodavcem. Poslije toga samo čekate da Vam se obratimo."
   >
     <VerticalFeatureRow
-      title="Your title here"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum, nunc non posuere consectetur, justo erat semper enim, non hendrerit dui odio id enim."
+      title={
+        <h3 className="text-3xl text-gray-900 font-semibold">
+          <StepNumber>1. </StepNumber> Ispunite prijavu
+        </h3>
+      }
+      description="Trebamo znati Vaš nivo iskustva, poznavanje jezika, države u kojima želite zaposlenje, i očekivanja. I naravno kontakt podatke za sljedeći korak!"
       image="/assets/images/feature.svg"
       imageAlt="First feature alt text"
     />
     <VerticalFeatureRow
-      title="Your title here"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum, nunc non posuere consectetur, justo erat semper enim, non hendrerit dui odio id enim."
+      title={
+        <h3 className="text-3xl text-gray-900 font-semibold">
+          <StepNumber>2. </StepNumber> Čekajte da Vam se obratimo
+        </h3>
+      }
+      description="Naš tim analizira Vašu prijavu i pokušava Vas spojiti sa partnerskim poslodavcima. Ukoliko budete odabrani, javićemo Vam se putem e-pošte ili kontakt telefona koji nam date."
       image="/assets/images/feature2.svg"
       imageAlt="Second feature alt text"
       reverse
     />
     <VerticalFeatureRow
-      title="Your title here"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum, nunc non posuere consectetur, justo erat semper enim, non hendrerit dui odio id enim."
+      title={
+        <h3 className="text-3xl text-gray-900 font-semibold">
+          <StepNumber>3.</StepNumber> Priprema radnih dokumenata
+        </h3>
+      }
+      description="Čestitamo! Došli ste do konačnog koraka. Jedina prepreka do rada sada jeste radna dozvola. Naš imigracioni tim sada preuzima i finalizujemo detalje."
       image="/assets/images/feature3.svg"
       imageAlt="Third feature alt text"
     />
