@@ -9,7 +9,7 @@ const NavItems = () => (
     </li>
     <li>
       <Link href="/">
-        <a>O nama</a>
+        <a>Način rada</a>
       </Link>
     </li>
     <li>

@@ -5,8 +5,8 @@ import { Section } from '../layout/Section';
 const Banner = () => (
   <Section>
     <CTABanner
-      title="Tražite posao u EU?"
-      subtitle="Prijavite se besplatno danas."
+      title="Tražiš posao u EU?"
+      subtitle="Prijavi se odmah."
       button={<CTAApply />}
     />
   </Section>
