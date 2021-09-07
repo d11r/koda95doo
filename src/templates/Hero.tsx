@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import React from 'react';
 
 import { Background } from '../background/Background';
-import { Button } from '../button/Button';
+import { CTAApply } from '../cta/CTAApply';
 import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
@@ -25,13 +25,7 @@ const Hero = () => (
           </>
         }
         description="Najlakši i najefektivniji put do posla u EU za sve struke"
-        button={
-          <Link href="/">
-            <a>
-              <Button xl>Apliciraj besplatno</Button>
-            </a>
-          </Link>
-        }
+        button={<CTAApply />}
       />
     </Section>
   </Background>
