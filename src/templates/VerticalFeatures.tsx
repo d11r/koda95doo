@@ -11,16 +11,15 @@ const VerticalFeatures = () => (
   <Section
     customTitle={
       <h2 className="text-3xl md:text-4xl text-gray-900 font-bold">
-        Do posla u <span className="underline">samo</span>{' '}
+        Do željenog posla u <span className="underline">samo</span>{' '}
         <StepNumber>3</StepNumber> koraka
       </h2>
     }
-    description="Nakon što ispuniš prijavu, uradićemo sve da te povežemo sa poslodavcem. Potom, čekaj da ti se obratimo."
   >
     <VerticalFeatureRow
       title={
         <h3 className="text-2xl md:text-3xl text-gray-900 font-semibold">
-          <StepNumber>1. </StepNumber> Ispuni prijavu
+          <StepNumber>1. </StepNumber> Popuni prijavu
         </h3>
       }
       description="Potrebno je navesti lične podatke, kontakt telefon i e-poštu, radno iskustvo, poznavanje jezika države u kojoj tražiš zaposlenje, te tvoje želje i očekivanja."

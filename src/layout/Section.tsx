@@ -14,12 +14,12 @@ const Section = (props: ISectionProps) => (
       props.yPadding ? props.yPadding : 'py-16'
     }`}
   >
-    {(props.title || props.description) && (
-      <div className="mb-12 text-center">
+    {(props.title || props.customTitle) && (
+      <div className="text-center">
         {props.customTitle
           ? props.customTitle
           : props.title && (
-              <h2 className="text-4xl text-gray-900 font-bold">
+              <h2 className="text 3xl md:text-4xl text-gray-900 font-bold">
                 {props.title}
               </h2>
             )}
