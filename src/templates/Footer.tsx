@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Background } from '../background/Background';
 import { CenteredFooter } from '../footer/CenteredFooter';
 import { Section } from '../layout/Section';
+import { NavItems } from '../navigation/NavItems';
 import { Logo } from './Logo';
 
 const Footer = () => (
@@ -38,26 +39,7 @@ const Footer = () => (
           </>
         }
       >
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/">
-            <a>About</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/">
-            <a>Docs</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="https://github.com/ixartz/Next-JS-Landing-Page-Starter-Template">
-            <a>GitHub</a>
-          </Link>
-        </li>
+        <NavItems />
       </CenteredFooter>
     </Section>
   </Background>

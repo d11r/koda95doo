@@ -5,17 +5,14 @@ import { Button } from '../button/Button';
 import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
+import { NavItems } from '../navigation/NavItems';
 import { Logo } from './Logo';
 
 const Hero = () => (
   <Background color="bg-gray-100">
     <Section yPadding="py-6">
       <NavbarTwoColumns logo={<Logo xl />}>
-        <li>
-          <Link href="/">
-            <a>Prijavite se</a>
-          </Link>
-        </li>
+        <NavItems />
       </NavbarTwoColumns>
     </Section>
 
