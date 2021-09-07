@@ -18,7 +18,7 @@ const Logo = (props: ILogoProps) => {
       <img
         src={`${router.basePath}/assets/images/logo.png`}
         alt="KODA95 Logo"
-        className="max-h-6 mr-2"
+        className="h-6 mr-2"
       />
 
       {AppConfig.site_name}
