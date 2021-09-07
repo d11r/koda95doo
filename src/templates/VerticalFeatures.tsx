@@ -40,10 +40,10 @@ const VerticalFeatures = () => (
     <VerticalFeatureRow
       title={
         <h3 className="text-3xl text-gray-900 font-semibold">
-          <StepNumber>3.</StepNumber> Priprema radnih dokumenata
+          <StepNumber>3.</StepNumber> Finaliziranje detalja
         </h3>
       }
-      description="Čestitamo! Došli ste do konačnog koraka. Jedina prepreka do rada sada jeste radna dozvola. Naš imigracioni tim sada preuzima i finalizujemo detalje."
+      description="Čestitamo. Došli ste do konačnog koraka. Na ovom koraku radimo zajedno da utvrdimo svu neophodnu papirologiju prije početka rada. Nakon ovog koraka spremni ste za rad!"
       image="/assets/images/feature3.svg"
       imageAlt="Third feature alt text"
     />
