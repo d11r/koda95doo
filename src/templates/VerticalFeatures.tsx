@@ -15,7 +15,7 @@ const VerticalFeatures = () => (
         <StepNumber>3</StepNumber> koraka
       </h2>
     }
-    description="Nakon što ispunite prijavu koja uključuje Vaše iskustvo, želje i očekivanja, mi radimo sve što je u našoj moći da Vas spojimo sa poslodavcem. Poslije toga samo čekate da Vam se obratimo."
+    description="Nakon što ispunite prijavu, uradićemo sve da Vas povežemo sa poslodavcem. Potom, čekajte da Vam se obratimo."
   >
     <VerticalFeatureRow
       title={
@@ -23,9 +23,9 @@ const VerticalFeatures = () => (
           <StepNumber>1. </StepNumber> Ispunite prijavu
         </h3>
       }
-      description="Trebamo znati Vaš nivo iskustva, poznavanje jezika, države u kojima želite zaposlenje, i očekivanja. I naravno kontakt podatke za sljedeći korak!"
+      description="Potrebno je navesti Vaše lične podatke, kontakt telefon i e-poštu, radno iskustvo, poznavanje jezika države u kojoj tražite zaposlenje, te Vaše želje i očekivanja."
       image="/assets/images/feature.svg"
-      imageAlt="First feature alt text"
+      imageAlt="Ispunjavanje prijave"
     />
     <VerticalFeatureRow
       title={
@@ -33,20 +33,20 @@ const VerticalFeatures = () => (
           <StepNumber>2. </StepNumber> Čekajte da Vam se obratimo
         </h3>
       }
-      description="Naš tim analizira Vašu prijavu i pokušava Vas spojiti sa partnerskim poslodavcima. Ukoliko budete odabrani, javićemo Vam se putem e-pošte ili kontakt telefona koji nam date."
+      description="Naš tim će analizirati Vašu prijavu i zapremiti je u našu bazu podataka. Kada se ukaže prilika, kontaktiraćemo Vas preko e-pošte ili telefona."
       image="/assets/images/feature2.svg"
-      imageAlt="Second feature alt text"
+      imageAlt="Čekanje da Vam se operater obrati"
       reverse
     />
     <VerticalFeatureRow
       title={
         <h3 className="text-2xl md:text-3xl text-gray-900 font-semibold">
-          <StepNumber>3.</StepNumber> Finaliziranje detalja
+          <StepNumber>3.</StepNumber> Finalizacija
         </h3>
       }
-      description="Čestitamo. Došli ste do konačnog koraka. Na ovom koraku radimo zajedno da utvrdimo svu neophodnu papirologiju prije početka rada. Nakon ovog koraka spremni ste za rad!"
+      description="Nakon što Vam prezentujemo ponudu poslodavca i Vi je prihvatite, obezbjeđujemo Vam neophodnu dokumentaciju."
       image="/assets/images/feature3.svg"
-      imageAlt="Third feature alt text"
+      imageAlt="Potpisivanje ugovora i izdavanje dokumentacije"
     />
   </Section>
 );
