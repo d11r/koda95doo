@@ -14,11 +14,6 @@ const NavItems = () => (
     </li>
     <li>
       <Link href="/">
-        <a>Način poslovanja</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/">
         <a>Partneri</a>
       </Link>
     </li>
