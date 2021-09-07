@@ -6,7 +6,7 @@ const Banner = () => (
   <Section>
     <CTABanner
       title="Tražite posao u EU?"
-      subtitle="Prijavi se besplatno danas."
+      subtitle="Prijavite se besplatno danas."
       button={<CTAApply />}
     />
   </Section>

@@ -16,7 +16,7 @@ const Hero = () => (
       </NavbarTwoColumns>
     </Section>
 
-    <Section yPadding="pt-10 pb-8">
+    <Section yPadding="pt-2 md:pt-10 pb-8">
       <HeroOneButton
         title={
           <>
@@ -24,7 +24,7 @@ const Hero = () => (
             <span className="text-primary-500">KODA95</span>
           </>
         }
-        description="Najlakši i najefektivniji put do posla u EU za sve struke"
+        description="Najlakši put do posla u EU za sve profesije"
         button={<CTAApply />}
       />
     </Section>
