@@ -16,7 +16,7 @@ const Logo = (props: ILogoProps) => {
   return (
     <span className={`text-gray-900 inline-flex items-center ${fontStyle}`}>
       <img
-        src={`${router.basePath}/assets/images/logo.svg`}
+        src={`${router.basePath}/assets/images/logo.png`}
         alt="KODA95 Logo"
         className="max-h-6 mr-2"
       />
