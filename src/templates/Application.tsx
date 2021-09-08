@@ -77,10 +77,14 @@ const Application = () => {
                 <p>4</p>
               </TabPanel>
 
-              <div className="flex items-center justify-between">
-                <div className="w-1/2 flex justify-start">
+              <div className="flex items-center justify-between flex-row">
+                <div className="w-full flex justify-start mr-2">
                   {step > 0 && (
-                    <button className="btn" type="button" onClick={goBack}>
+                    <button
+                      className="btn btn-outline w-full sm:w-auto"
+                      type="button"
+                      onClick={goBack}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
@@ -99,32 +103,35 @@ const Application = () => {
                     </button>
                   )}
                 </div>
-
-                <div className="w-1/2 flex justify-end">
+                <div className="w-full flex justify-end ml-2">
                   {step >= 0 && step <= MAX && (
                     <button
-                      className={`btn${isFinalStep ? ' btn-primary' : ''}`}
+                      className={`btn w-full sm:w-auto${
+                        isFinalStep ? ' btn-primary' : ''
+                      }`}
                       type="button"
                       onClick={() => {
                         if (!isFinalStep) goForward();
                         else finish();
                       }}
                     >
-                      {isFinalStep ? 'Pošalji prijavu ' : 'Dalje '}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 7l5 5m0 0l-5 5m5-5H6"
-                        />
-                      </svg>
+                      {isFinalStep ? 'Pošalji' : 'Dalje '}
+                      {!isFinalStep && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
+                        </svg>
+                      )}
                     </button>
                   )}
                 </div>
