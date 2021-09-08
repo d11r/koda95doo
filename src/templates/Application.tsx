@@ -32,17 +32,34 @@ const Application = () => {
               <TabList className="my-6 w-full steps">
                 <Tab
                   data-content="1"
-                  className="step step-primary cursor-pointer"
+                  className={`step cursor-pointer${
+                    step === 0 ? ' step-info' : ''
+                  }`}
                 >
                   Lični podaci
                 </Tab>
-                <Tab data-content="2" className="step cursor-pointer">
+                <Tab
+                  data-content="2"
+                  className={`step cursor-pointer${
+                    step === 1 ? ' step-info' : ''
+                  }`}
+                >
                   Radno iskustvo
                 </Tab>
-                <Tab data-content="3" className="step cursor-pointer">
+                <Tab
+                  data-content="3"
+                  className={`step cursor-pointer${
+                    step === 2 ? ' step-info' : ''
+                  }`}
+                >
                   Poznavanje jezika
                 </Tab>
-                <Tab data-content="4" className="step cursor-pointer">
+                <Tab
+                  data-content="4"
+                  className={`step cursor-pointer${
+                    step === 3 ? ' step-info' : ''
+                  }`}
+                >
                   Želje i očekivanja
                 </Tab>
                 <div data-content="✓" className="step ">
