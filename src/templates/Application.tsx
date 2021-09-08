@@ -22,14 +22,14 @@ const Application = () => {
       <Section yPadding="py-6 flex flex-col items-center min-h-screen">
         <Logo xl />
         <div className="w-full max-w-3xl mt-4">
-          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4">
             <ApplicationAlert
               title="Detaljno ispunite formu"
               description="Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
             />
 
             <Tabs selectedIndex={step} onSelect={(idx) => jump(idx)}>
-              <TabList className="my-6 w-full steps">
+              <TabList className="my-6 w-full steps hidden sm:grid">
                 <Tab
                   data-content="1"
                   className={`step cursor-pointer${
@@ -62,9 +62,6 @@ const Application = () => {
                 >
                   Želje i očekivanja
                 </Tab>
-                <div data-content="✓" className="step ">
-                  Uspjeh!
-                </div>
               </TabList>
 
               <TabPanel>
