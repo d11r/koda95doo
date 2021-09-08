@@ -67,20 +67,41 @@ const PersonalDetailsForm = () => {
           </div>
         </div>
       </div>
-
       <div className="flex items-center justify-between">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="button"
-        >
-          Sign In
+        <button className="btn" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M11 17l-5-5m0 0l5-5m-5 5h12"
+            />
+          </svg>
+          Nazad
         </button>
-        <a
-          className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-          href="#"
-        >
-          Forgot Password?
-        </a>
+        <button className="btn btn" type="button">
+          Dalje{' '}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        </button>
       </div>
     </>
   );

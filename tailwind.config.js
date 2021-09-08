@@ -48,4 +48,8 @@ module.exports = {
   variants: {},
   // eslint-disable-next-line global-require
   plugins: [require('daisyui')],
+  daisyui: {
+    themes: false,
+    rtl: false,
+  },
 };
