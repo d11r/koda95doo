@@ -11,7 +11,7 @@ import { Section } from '../layout/Section';
 import { Logo } from './Logo';
 
 const finish = () => {
-  console.log('finish');
+  // TODO: implement end of page
 };
 
 const Application = () => {
