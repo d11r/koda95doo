@@ -39,7 +39,11 @@ const PersonalDetailsForm = () => {
           />
         </div>
         <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">
-          <InputLabel for="tel" label="Broj mobilnog telefona" />
+          <InputLabel
+            for="tel"
+            label="Broj mobilnog telefona"
+            tooltip="Sa pozivnim brojem"
+          />
           <input
             type="tel"
             id="tel"
@@ -49,6 +53,18 @@ const PersonalDetailsForm = () => {
           />
         </div>
 
+        <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">
+          <InputLabel for="yob" label="Godina rođenja" />
+          <input
+            type="number"
+            id="yob"
+            autoComplete="bday-year"
+            min={1940}
+            max={new Date().getFullYear() - 17}
+            className="input input-bordered w-full"
+            placeholder="Godina kao na pasošu (primjer 1989)"
+          />
+        </div>
         <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">
           <InputLabel for="country" label="Državljanstvo" />
 

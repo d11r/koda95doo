@@ -36,15 +36,44 @@ const WorkExperienceForm = () => {
             ))}
           </select>
         </div>
-        <div className="w-full px-3 mt-0 mb-6 md:mt-6">
+        <div className="w-full md:w-1/2 px-3 mt-0 mb-6 md:mt-6">
+          <InputLabel
+            for="yoe"
+            label="Godine iskustva u struci"
+            tooltip="Ukoliko nemaš iskustvo, unesi broj 0"
+          />
+          <input
+            type="number"
+            id="yoe"
+            autoComplete="off"
+            min={0}
+            max={100}
+            className="input input-bordered w-full"
+            placeholder="XX"
+          />
+        </div>
+        <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">
+          <InputLabel for="currently-employed" label="Trenutno zaposlenje" />
+          <div className="form-control">
+            <label className="cursor-pointer label">
+              <span className="label-text">Trenutno zaposlen/a?</span>
+              <input
+                type="checkbox"
+                id="currently-employed"
+                className="checkbox"
+              />
+            </label>
+          </div>
+        </div>
+        <div className="w-full px-3 mb-6">
           <InputLabel
             for="experience"
             label="Opis prethodnih poslova"
-            tooltip="Navedi svoje prijašnje poslodavce, te opiši šta su ti poslovi obuhvatali."
+            tooltip="Navedi svoje prijašnje (i trenutne) poslodavce, te opiši šta su ti poslovi obuhvatali."
           />
           <textarea
             className="textarea h-24 textarea-bordered w-full"
-            placeholder="Detaljno opišite svoje prošlo radno iskustvo."
+            placeholder="Detaljno opiši svoje prošlo radno iskustvo."
             id="experience"
           />
         </div>
