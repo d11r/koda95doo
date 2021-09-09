@@ -40,7 +40,7 @@ const WorkExperienceForm = () => {
           <InputLabel
             for="yoe"
             label="Godine iskustva u struci"
-            tooltip="Ukoliko nemaš iskustvo, unesi broj 0"
+            tooltip="Ako nemaš iskustvo, unesi broj 0"
           />
           <input
             type="number"
@@ -69,7 +69,7 @@ const WorkExperienceForm = () => {
           <InputLabel
             for="experience"
             label="Opis prethodnih poslova"
-            tooltip="Navedi svoje prijašnje (i trenutne) poslodavce, te opiši šta su ti poslovi obuhvatali."
+            tooltip="Detaljan opis svih radnih iskustava"
           />
           <textarea
             className="textarea h-24 textarea-bordered w-full"

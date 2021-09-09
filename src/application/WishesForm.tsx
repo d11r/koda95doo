@@ -12,7 +12,7 @@ const WishesForm = () => {
           <InputLabel
             for="work-country"
             label="Željena država"
-            tooltip="Odaberi sve države/regione u kojima bi potencjialno želio/željela raditi."
+            tooltip="Države/regioni gdje bi želio/željela raditi."
           />
           <div className="form-control">
             {countryList.map((country) => (
@@ -32,7 +32,7 @@ const WishesForm = () => {
           <InputLabel
             for="available-now"
             label="Dostupan/na odmah?"
-            tooltip="Ukoliko dobiješ posao, da li bi mogao/mogla početi odmah?"
+            tooltip="Da li bi mogao/mogla početi odmah?"
           />
           <div className="form-control">
             <label className="cursor-pointer label">
@@ -45,7 +45,7 @@ const WishesForm = () => {
           <InputLabel
             for="wishes"
             label="Posebni zahtjevi i uslovi"
-            tooltip="Ukoliko imaš neke posebne uslove koje tražiš (minimalna plata, mjesto rada, radno vrijeme, itd.) bez kojih ne bi prihvatio/la posao, napiši ih ovdje."
+            tooltip="Ukoliko imaš neke posebne uslove koje tražiš, napiši ih ovdje."
           />
           <textarea
             className="textarea h-24 textarea-bordered w-full"

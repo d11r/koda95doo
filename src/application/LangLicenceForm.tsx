@@ -50,7 +50,7 @@ const LangLicenceForm = () => (
         <InputLabel
           for="licence"
           label="Licence, kursevi, priznanja i nagrade"
-          tooltip="Navedi sve vrste licenci, završenih kurseva, priznanja i nagrada koje direktno ili indirektno utiču na tvoje kvalifikacije."
+          tooltip="Navedi sve misliš da bi nam pomoglo pri selekciji"
         />
         <textarea
           className="textarea h-24 textarea-bordered w-full"
