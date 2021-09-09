@@ -25,7 +25,7 @@ const Application = () => {
       <Section yPadding="py-6 flex flex-col items-center min-h-screen">
         <Logo xl />
         <div className="w-full max-w-3xl mt-4">
-          <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4">
+          <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
             <ApplicationAlert
               title="Detaljno ispunite formu"
               description="Sva polja su obavezna. Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
