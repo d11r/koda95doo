@@ -6,6 +6,7 @@ import { ApplicationAlert } from '../alert/ApplicationAlert';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
 import { useFormStep } from '../application/useFormStep';
+import { WishesForm } from '../application/WishesForm';
 import { WorkExperienceForm } from '../application/WorkExperienceForm';
 import { Background } from '../background/Background';
 import { FooterCopyright } from '../footer/FooterCopyright';
@@ -76,7 +77,7 @@ const Application = () => {
                 <LangLicenceForm />
               </TabPanel>
               <TabPanel>
-                <p>4</p>
+                <WishesForm />
               </TabPanel>
 
               <div className="flex items-center justify-between flex-row">
