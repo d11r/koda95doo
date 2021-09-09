@@ -51,6 +51,18 @@ const LangLicenceForm = () => (
         <Lang code="ru" label="Ruski" />
         <Lang code="uk" label="Ukrajinski" />
       </div>
+      <div className="w-full px-3 mb-6 md:mb-0">
+        <InputLabel
+          for="licence"
+          label="Licence, kursevi, priznanja i nagrade"
+          tooltip="Navedi sve vrste licenci, završenih kurseva, priznanja i nagrada koje direktno ili indirektno utiču na tvoje kvalifikacije."
+        />
+        <textarea
+          className="textarea h-24 textarea-bordered w-full"
+          placeholder="Profesionalne i/ili licence za poznavanje jezika"
+          id="licence"
+        />
+      </div>
     </div>
   </>
 );
