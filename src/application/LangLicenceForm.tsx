@@ -15,11 +15,7 @@ const languageLevels = [
 const LangKnowledgeLevels = (props: { id: string }) => (
   <select
     className="select select-bordered flex-grow ml-2 w-1/2"
-    defaultValue={
-      props.id === 'sr'
-        ? languageLevels[languageLevels.length - 1]
-        : languageLevels[0]
-    }
+    defaultValue={languageLevels[0]}
     id={props.id}
   >
     {languageLevels.map((level) => (
@@ -42,7 +38,6 @@ const LangLicenceForm = () => (
     <div className="flex flex-wrap -mx-3 mb-6 mt-6">
       <div className="w-full px-3 mb-6 md:mb-0">
         <InputLabel for="lang" label="Poznavanje jezika" />
-        <Lang code="sr" label="SRB/CRO/BIH/MNE" />
         <Lang code="en" label="Engleski" />
         <Lang code="de" label="Njemački" />
         <Lang code="sl" label="Slovenački" />
