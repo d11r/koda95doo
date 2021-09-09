@@ -5,6 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { ApplicationAlert } from '../alert/ApplicationAlert';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
 import { useFormStep } from '../application/useFormStep';
+import { WorkExperienceForm } from '../application/WorkExperienceForm';
 import { Background } from '../background/Background';
 import { FooterCopyright } from '../footer/FooterCopyright';
 import { Section } from '../layout/Section';
@@ -25,7 +26,7 @@ const Application = () => {
           <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4">
             <ApplicationAlert
               title="Detaljno ispunite formu"
-              description="Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
+              description="Sva polja su obavezna. Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
             />
 
             <Tabs selectedIndex={step} onSelect={(idx) => jump(idx)}>
@@ -68,7 +69,7 @@ const Application = () => {
                 <PersonalDetailsForm />
               </TabPanel>
               <TabPanel>
-                <p>2</p>
+                <WorkExperienceForm />
               </TabPanel>
               <TabPanel>
                 <p>3</p>
