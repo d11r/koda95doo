@@ -3,6 +3,7 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { ApplicationAlert } from '../alert/ApplicationAlert';
+import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
 import { useFormStep } from '../application/useFormStep';
 import { WorkExperienceForm } from '../application/WorkExperienceForm';
@@ -53,7 +54,7 @@ const Application = () => {
                     step === 2 ? ' step-info' : ''
                   }`}
                 >
-                  Poznavanje jezika
+                  Jezik i licence
                 </Tab>
                 <Tab
                   data-content="4"
@@ -72,7 +73,7 @@ const Application = () => {
                 <WorkExperienceForm />
               </TabPanel>
               <TabPanel>
-                <p>3</p>
+                <LangLicenceForm />
               </TabPanel>
               <TabPanel>
                 <p>4</p>
