@@ -10,7 +10,8 @@ const citizenshipList = [
   'Drugo (unutar EU)',
 ] as const;
 
-type CitizenshipUnionType = typeof citizenshipList[number];
+export type CitizenshipUnionType = typeof citizenshipList[number];
+export type CitizenshipCountriesType = typeof citizenshipList;
 
 const useCitizenshipSelect = () => {
   const [selected, setSelected] = React.useState<CitizenshipUnionType[]>([]);

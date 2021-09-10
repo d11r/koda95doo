@@ -5,7 +5,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { ApplicationAlert } from '../alert/ApplicationAlert';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
+import { useCitizenshipSelect } from '../application/useCitizenshipSelect';
 import { useFormStep } from '../application/useFormStep';
+import { usePersonalInfoInput } from '../application/usePersonalInfoInput';
 import { WishesForm } from '../application/WishesForm';
 import { WorkExperienceForm } from '../application/WorkExperienceForm';
 import { Background } from '../background/Background';
@@ -14,12 +16,40 @@ import { Section } from '../layout/Section';
 import { Logo } from './Logo';
 
 const finish = () => {
-  // TODO: implement end of page
+  // TODO: implement end of application
+  // TODO: submit all data
 };
 
 const Application = () => {
-  const { step, jump, goBack, goForward, MAX } = useFormStep();
+  const { step, goBack, goForward, MAX } = useFormStep();
   const isFinalStep = step === MAX;
+  const [isNextPageClicked, setIsNextPageClicked] = React.useState(false);
+
+  // for validation
+  // 1: personal
+  const personalInfo = usePersonalInfoInput();
+  const { name, surname, email, phone, yob } = personalInfo;
+  const countries = useCitizenshipSelect();
+  const { selected } = countries;
+  const isPersonalDetailsOK =
+    name.isValid &&
+    surname.isValid &&
+    email.isValid &&
+    phone.isValid &&
+    yob.isValid &&
+    selected.length > 0;
+
+  const handleForward = () => {
+    // TODO: do for all steps
+    if (step === 0) {
+      if (isPersonalDetailsOK) {
+        goForward();
+      } else {
+        setIsNextPageClicked(true);
+      }
+    }
+  };
+
   return (
     <Background color="bg-gray-100">
       <Section yPadding="py-6 flex flex-col items-center min-h-screen">
@@ -31,44 +61,39 @@ const Application = () => {
               description="Sva polja su obavezna. Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
             />
 
-            <Tabs selectedIndex={step} onSelect={(idx) => jump(idx)}>
+            <Tabs selectedIndex={step} onSelect={() => {}}>
               <TabList className="my-6 w-full steps hidden sm:grid">
                 <Tab
                   data-content="1"
-                  className={`step cursor-pointer${
-                    step === 0 ? ' step-info' : ''
-                  }`}
+                  className={`step${step === 0 ? ' step-info' : ''}`}
                 >
                   Lični podaci
                 </Tab>
                 <Tab
                   data-content="2"
-                  className={`step cursor-pointer${
-                    step === 1 ? ' step-info' : ''
-                  }`}
+                  className={`step${step === 1 ? ' step-info' : ''}`}
                 >
                   Radno iskustvo
                 </Tab>
                 <Tab
                   data-content="3"
-                  className={`step cursor-pointer${
-                    step === 2 ? ' step-info' : ''
-                  }`}
+                  className={`step${step === 2 ? ' step-info' : ''}`}
                 >
                   Jezik i licence
                 </Tab>
                 <Tab
                   data-content="4"
-                  className={`step cursor-pointer${
-                    step === 3 ? ' step-info' : ''
-                  }`}
+                  className={`step${step === 3 ? ' step-info' : ''}`}
                 >
                   Želje i očekivanja
                 </Tab>
               </TabList>
 
               <TabPanel>
-                <PersonalDetailsForm />
+                <PersonalDetailsForm
+                  clickedNext={step === 0 && isNextPageClicked}
+                  info={{ ...personalInfo, countries }}
+                />
               </TabPanel>
               <TabPanel>
                 <WorkExperienceForm />
@@ -114,7 +139,7 @@ const Application = () => {
                       }`}
                       type="button"
                       onClick={() => {
-                        if (!isFinalStep) goForward();
+                        if (!isFinalStep) handleForward();
                         else finish();
                       }}
                     >

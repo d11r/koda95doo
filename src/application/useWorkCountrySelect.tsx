@@ -9,7 +9,8 @@ const workCountryList = [
   'Bilo koja država EU',
 ] as const;
 
-type WorkCountryUnionType = typeof workCountryList[number];
+export type WorkCountryUnionType = typeof workCountryList[number];
+export type WorkCountryType = typeof workCountryList;
 
 const useWorkCountrySelect = () => {
   const [selected, setSelected] = React.useState<WorkCountryUnionType[]>([]);
