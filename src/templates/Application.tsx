@@ -93,6 +93,7 @@ const Application = () => {
 
   const sendToFirebase = async (submissionData: any) => {
     await post(submissionData);
+    console.log('sent!');
   };
 
   const finish = async () => {
