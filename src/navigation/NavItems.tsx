@@ -8,13 +8,10 @@ const NavItems = () => (
       </Link>
     </li>
     <li>
-      <Link href="/">
-        <a>O nama</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/">
-        <a>Partneri</a>
+      <Link href="https://www.facebook.com/mladjenovicmatrica">
+        <a target="_blank" rel="noopener noreferrer">
+          FB stranica
+        </a>
       </Link>
     </li>
   </>
