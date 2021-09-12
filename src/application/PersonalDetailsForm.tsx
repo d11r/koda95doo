@@ -21,7 +21,7 @@ const PersonalDetailsForm = (props: {
     surname: { value: string; setValue: Function; isValid: boolean };
     email: { value: string; setValue: Function; isValid: boolean };
     phone: { value: string; setValue: Function; isValid: boolean };
-    yob: { value: string | undefined; setValue: Function; isValid: boolean };
+    yob: { value: string; setValue: Function; isValid: boolean };
     countries: {
       countryList: CitizenshipCountriesType;
       selected: CitizenshipUnionType[];

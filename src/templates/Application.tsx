@@ -12,6 +12,8 @@ import { useFormStep } from '../application/useFormStep';
 import { useLangInput } from '../application/useLangInput';
 import { useOccupations } from '../application/useOccupations';
 import { usePersonalInfoInput } from '../application/usePersonalInfoInput';
+import { useWishesInput } from '../application/useWishesInput';
+import { useWorkCountrySelect } from '../application/useWorkCountrySelect';
 import { useWorkExperienceInput } from '../application/useWorkExperienceInput';
 import { WishesForm } from '../application/WishesForm';
 import { WorkExperienceForm } from '../application/WorkExperienceForm';
@@ -19,11 +21,6 @@ import { Background } from '../background/Background';
 import { FooterCopyright } from '../footer/FooterCopyright';
 import { Section } from '../layout/Section';
 import { Logo } from './Logo';
-
-const finish = () => {
-  // TODO: implement end of application
-  // TODO: submit all data
-};
 
 const Application = () => {
   const { step, goBack, goForward, MAX } = useFormStep();
@@ -60,11 +57,15 @@ const Application = () => {
   const langAndCert = useCertInput();
   const isLangAndCertOK = langAndCert.isValid;
 
+  // for wishes and expectations
+  const workCountry = useWorkCountrySelect();
+  const wishes = useWishesInput();
+  const isWishesOK =
+    workCountry.selected.length > 0 &&
+    wishes.availableNow.isValid &&
+    wishes.specialRequests.isValid;
+
   const handleForward = () => {
-    // TODO: do for all steps
-
-    // goForward();
-
     if (step === 0) {
       if (isPersonalDetailsOK) {
         goForward();
@@ -86,6 +87,15 @@ const Application = () => {
       } else {
         setIsNextPageClicked(true);
       }
+    }
+  };
+
+  const finish = () => {
+    if (isWishesOK) {
+      // TODO: submit all data
+      // maybe netlify forms? or firebase
+    } else {
+      setIsNextPageClicked(true);
     }
   };
 
@@ -150,7 +160,11 @@ const Application = () => {
                 />
               </TabPanel>
               <TabPanel>
-                <WishesForm />
+                <WishesForm
+                  clickedNext={step === 3 && isNextPageClicked}
+                  workCountry={workCountry}
+                  wishes={wishes}
+                />
               </TabPanel>
 
               <div className="flex items-center justify-between flex-row">

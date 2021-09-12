@@ -28,7 +28,7 @@ const usePersonalInfoInput = () => {
   const [surname, setSurname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
-  const [yob, setYob] = React.useState(undefined);
+  const [yob, setYob] = React.useState('');
 
   return {
     name: {
@@ -54,7 +54,7 @@ const usePersonalInfoInput = () => {
     yob: {
       value: yob,
       setValue: setYob,
-      isValid: validateYob(yob),
+      isValid: validateYob(Number(yob)),
     },
   };
 };
