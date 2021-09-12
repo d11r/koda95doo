@@ -18,16 +18,10 @@ const APPLICATIONS_DB_NAME = 'job_applications';
 
 const post = async (submissionData: any) => {
   try {
-    console.log('trying to send...', submissionData);
-    const docRef = await addDoc(
-      collection(firestore, APPLICATIONS_DB_NAME),
-      submissionData
-    );
-    // TODO: check docRef to see if successful
-    console.log('document written', docRef.id);
+    await addDoc(collection(firestore, APPLICATIONS_DB_NAME), submissionData);
+    return true;
   } catch (e: any) {
-    // TODO: if error, consult user to try again
-    console.error('error adding doc', e);
+    return false;
   }
 };
 

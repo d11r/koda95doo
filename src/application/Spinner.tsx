@@ -1,6 +1,9 @@
 const Spinner = () => (
-  <div className="flex justify-center items-center">
-    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+  <div>
+    <div
+      style={{ borderTopColor: 'transparent' }}
+      className="w-4 h-4 border-4 border-white border-solid rounded-full animate-spin mr-2"
+    ></div>
   </div>
 );
 

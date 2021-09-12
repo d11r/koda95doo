@@ -5,6 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { ApplicationAlert } from '../alert/ApplicationAlert';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
+import { Spinner } from '../application/Spinner';
 import { useCertInput } from '../application/useCertInput';
 import { useCitizenshipSelect } from '../application/useCitizenshipSelect';
 import { useEducation } from '../application/useEducation';
@@ -27,6 +28,8 @@ const Application = () => {
   const { step, goBack, goForward, MAX } = useFormStep();
   const isFinalStep = step === MAX;
   const [isNextPageClicked, setIsNextPageClicked] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [submissionState, setSubmissionState] = React.useState('progress');
 
   // for validation
   // 1: personal
@@ -92,8 +95,12 @@ const Application = () => {
   };
 
   const sendToFirebase = async (submissionData: any) => {
-    await post(submissionData);
-    console.log('sent!');
+    const isSuccess = await post(submissionData);
+    if (isSuccess) {
+      setSubmissionState('success');
+    } else {
+      setSubmissionState('error');
+    }
   };
 
   const finish = async () => {
@@ -120,12 +127,28 @@ const Application = () => {
         'immediately-available': wishes.availableNow.value,
         'special-requests': wishes.specialRequests.value,
       };
+      setIsLoading(true);
       await sendToFirebase(submissionData);
-      // TODO: navigate to thanks screen
+      setIsLoading(false);
     } else {
       setIsNextPageClicked(true);
     }
   };
+
+  if (submissionState !== 'progress') {
+    return (
+      <Background color="bg-gray-100">
+        <Section yPadding="py-6 flex flex-col items-center min-h-screen">
+          <Logo xl />
+          <div className="w-full max-w-3xl mt-4">
+            <div className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
+              {submissionState === 'success' ? 'success' : 'error'}
+            </div>
+          </div>
+        </Section>
+      </Background>
+    );
+  }
 
   return (
     <Background color="bg-gray-100">
@@ -133,11 +156,6 @@ const Application = () => {
         <Logo xl />
         <div className="w-full max-w-3xl mt-4">
           <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
-            <input
-              type="hidden"
-              name="form-name"
-              value="netlify-form-submission"
-            />
             <ApplicationAlert
               title="Detaljno ispunite formu"
               description="Sva polja su obavezna. Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
@@ -238,8 +256,8 @@ const Application = () => {
                         else finish();
                       }}
                     >
-                      {isFinalStep ? 'Pošalji' : 'Dalje '}
-                      {!isFinalStep && (
+                      {!isFinalStep && 'Dalje '}
+                      {!isFinalStep ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6"
@@ -254,7 +272,10 @@ const Application = () => {
                             d="M13 7l5 5m0 0l-5 5m5-5H6"
                           />
                         </svg>
+                      ) : (
+                        isLoading && <Spinner />
                       )}
+                      {isFinalStep && 'Pošalji '}
                     </button>
                   )}
                 </div>
