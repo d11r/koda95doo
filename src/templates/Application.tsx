@@ -5,9 +5,11 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { ApplicationAlert } from '../alert/ApplicationAlert';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
+import { useCertInput } from '../application/useCertInput';
 import { useCitizenshipSelect } from '../application/useCitizenshipSelect';
 import { useEducation } from '../application/useEducation';
 import { useFormStep } from '../application/useFormStep';
+import { useLangInput } from '../application/useLangInput';
 import { useOccupations } from '../application/useOccupations';
 import { usePersonalInfoInput } from '../application/usePersonalInfoInput';
 import { useWorkExperienceInput } from '../application/useWorkExperienceInput';
@@ -53,8 +55,16 @@ const Application = () => {
     workExperience.employed.isValid &&
     workExperience.exp.isValid;
 
+  // for language & certs
+  const language = useLangInput();
+  const langAndCert = useCertInput();
+  const isLangAndCertOK = langAndCert.isValid;
+
   const handleForward = () => {
     // TODO: do for all steps
+
+    // goForward();
+
     if (step === 0) {
       if (isPersonalDetailsOK) {
         goForward();
@@ -64,6 +74,13 @@ const Application = () => {
       }
     } else if (step === 1) {
       if (isWorkExpOK) {
+        goForward();
+        setIsNextPageClicked(false); // reset
+      } else {
+        setIsNextPageClicked(true);
+      }
+    } else if (step === 2) {
+      if (isLangAndCertOK) {
         goForward();
         setIsNextPageClicked(false); // reset
       } else {
@@ -126,7 +143,11 @@ const Application = () => {
                 />
               </TabPanel>
               <TabPanel>
-                <LangLicenceForm />
+                <LangLicenceForm
+                  clickedNext={step === 2 && isNextPageClicked}
+                  language={language}
+                  langAndCert={langAndCert}
+                />
               </TabPanel>
               <TabPanel>
                 <WishesForm />
