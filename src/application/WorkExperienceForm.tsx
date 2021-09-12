@@ -1,12 +1,21 @@
 import React from 'react';
 
 import { InputLabel } from './InputLabel';
-import { useEducation } from './useEducation';
-import { useOccupations } from './useOccupations';
+import { EducationsType } from './useEducation';
+import { OccupationsType } from './useOccupations';
 
-const WorkExperienceForm = () => {
-  const { occupationList } = useOccupations();
-  const { eduList } = useEducation();
+const WorkExperienceForm = (props: {
+  occupation: {
+    occupationList: OccupationsType;
+    value: string | undefined;
+    setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  };
+  education: {
+    eduList: EducationsType;
+    value: string | undefined;
+    setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  };
+}) => {
   return (
     <>
       <div className="flex flex-wrap -mx-3 mb-6 mt-6">
@@ -18,7 +27,7 @@ const WorkExperienceForm = () => {
             id="occupation"
           >
             <option disabled={true}>Odaberi svoje zanimanje</option>
-            {occupationList.map((option) => (
+            {props.occupation.occupationList.map((option) => (
               <option key={option}>{option}</option>
             ))}
           </select>
@@ -31,7 +40,7 @@ const WorkExperienceForm = () => {
             id="edu"
           >
             <option disabled={true}>Odaberi nivo obrazovanja</option>
-            {eduList.map((option) => (
+            {props.education.eduList.map((option) => (
               <option key={option}>{option}</option>
             ))}
           </select>

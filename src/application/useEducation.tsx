@@ -1,3 +1,5 @@
+import React from 'react';
+
 const edu = [
   'Bez edukacije',
   'Četiri razreda osnovne škole',
@@ -10,8 +12,17 @@ const edu = [
   'Doktor nauka',
 ];
 
+export type EducationUnionType = typeof edu[number];
+export type EducationsType = typeof edu;
+
 const useEducation = () => {
-  return { eduList: edu };
+  const [selectedEducationLevel, setSelectedEducationLevel] =
+    React.useState<EducationUnionType>();
+  return {
+    eduList: edu,
+    value: selectedEducationLevel,
+    setValue: setSelectedEducationLevel,
+  };
 };
 
 export { useEducation };

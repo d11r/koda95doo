@@ -1,3 +1,5 @@
+import React from 'react';
+
 const occupations = [
   'Armirač',
   'Autolakirer',
@@ -44,8 +46,17 @@ const occupations = [
   'Drugo (navedi u opisu posla)',
 ];
 
+export type OccupationUnionType = typeof occupations[number];
+export type OccupationsType = typeof occupations;
+
 const useOccupations = () => {
-  return { occupationList: occupations };
+  const [selectedOccupation, setSelectedOccupation] =
+    React.useState<OccupationUnionType>();
+  return {
+    occupationList: occupations,
+    value: selectedOccupation,
+    setValue: setSelectedOccupation,
+  };
 };
 
 export { useOccupations };

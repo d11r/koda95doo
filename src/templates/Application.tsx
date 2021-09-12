@@ -6,7 +6,9 @@ import { ApplicationAlert } from '../alert/ApplicationAlert';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
 import { useCitizenshipSelect } from '../application/useCitizenshipSelect';
+import { useEducation } from '../application/useEducation';
 import { useFormStep } from '../application/useFormStep';
+import { useOccupations } from '../application/useOccupations';
 import { usePersonalInfoInput } from '../application/usePersonalInfoInput';
 import { WishesForm } from '../application/WishesForm';
 import { WorkExperienceForm } from '../application/WorkExperienceForm';
@@ -38,6 +40,10 @@ const Application = () => {
     phone.isValid &&
     yob.isValid &&
     selected.length > 0;
+
+  // for work experience
+  const occupation = useOccupations();
+  const education = useEducation();
 
   const handleForward = () => {
     // TODO: do for all steps
@@ -96,7 +102,10 @@ const Application = () => {
                 />
               </TabPanel>
               <TabPanel>
-                <WorkExperienceForm />
+                <WorkExperienceForm
+                  occupation={occupation}
+                  education={education}
+                />
               </TabPanel>
               <TabPanel>
                 <LangLicenceForm />
