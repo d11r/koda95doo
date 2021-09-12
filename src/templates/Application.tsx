@@ -90,10 +90,51 @@ const Application = () => {
     }
   };
 
+  function encode(data: any) {
+    return Object.keys(data)
+      .map(
+        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+      )
+      .join('&');
+  }
+
+  const sendToNetlify = async () => {
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': 'form-name',
+        // 1st page
+        name,
+        surname,
+        email,
+        phone,
+        'year-of-birth': yob,
+        citizenship: selected,
+        // 2nd page
+        occupation: occupation.value,
+        education: education.value,
+        'years-of-experience': workExperience.yoe.value,
+        'currently-employed': workExperience.employed.value,
+        'previous-job-desc': workExperience.exp.value,
+        // 3rd page
+        languages: language.level,
+        licences: langAndCert.value,
+        // 4th page
+        'countries-of-work': workCountry.selected,
+        'immediately-available': wishes.availableNow.value,
+        'special-requests': wishes.specialRequests.value,
+      }),
+    })
+      .then(() => alert('submitted'))
+      .catch((error) => alert(error));
+  };
+
   const finish = () => {
     if (isWishesOK) {
       // TODO: submit all data
       // maybe netlify forms? or firebase
+      sendToNetlify();
     } else {
       setIsNextPageClicked(true);
     }
@@ -105,6 +146,11 @@ const Application = () => {
         <Logo xl />
         <div className="w-full max-w-3xl mt-4">
           <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
+            <input
+              type="hidden"
+              name="form-name"
+              value="netlify-form-submission"
+            />
             <ApplicationAlert
               title="Detaljno ispunite formu"
               description="Sva polja su obavezna. Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
