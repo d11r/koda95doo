@@ -96,10 +96,6 @@ const Application = () => {
     }
   };
 
-  const sendEmail = async () => {
-    // todo
-  };
-
   const finish = async () => {
     if (isWishesOK) {
       const submissionData = {
@@ -128,8 +124,6 @@ const Application = () => {
       const isSuccess = await post(submissionData);
 
       if (isSuccess) {
-        // send email
-        await sendEmail();
         setSubmissionState('success');
       } else {
         setSubmissionState('error');
