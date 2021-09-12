@@ -7,8 +7,9 @@ const API_KEY = functions.config().sendgrid.key;
 const TEMPLATE_ID = functions.config().sendgrid.template;
 sgMail.setApiKey(API_KEY);
 
-export const welcomeEmail = functions.firestore
-  .document('job_applications/{applicationId}')
+export const welcomeEmail = functions
+  .region('europe-west1')
+  .firestore.document('job_applications/{applicationId}')
   .onCreate((snap) => {
     const newValue = snap.data();
     const message = {
