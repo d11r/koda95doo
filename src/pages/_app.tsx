@@ -1,10 +1,10 @@
 import { AppProps } from 'next/app';
-import { resetIdCounter } from 'react-tabs';
 import '../styles/main.css';
+import { resetIdCounter } from 'react-tabs';
 
-resetIdCounter();
-const MyApp = ({ Component, pageProps }: AppProps) => (
-  <Component {...pageProps} />
-);
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  resetIdCounter();
+  return <Component {...pageProps} />;
+};
 
 export default MyApp;

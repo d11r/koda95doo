@@ -10,6 +10,7 @@ import { useEducation } from '../application/useEducation';
 import { useFormStep } from '../application/useFormStep';
 import { useOccupations } from '../application/useOccupations';
 import { usePersonalInfoInput } from '../application/usePersonalInfoInput';
+import { useWorkExperienceInput } from '../application/useWorkExperienceInput';
 import { WishesForm } from '../application/WishesForm';
 import { WorkExperienceForm } from '../application/WorkExperienceForm';
 import { Background } from '../background/Background';
@@ -44,12 +45,27 @@ const Application = () => {
   // for work experience
   const occupation = useOccupations();
   const education = useEducation();
+  const workExperience = useWorkExperienceInput();
+  const isWorkExpOK =
+    occupation.value != null &&
+    education.value != null &&
+    workExperience.yoe.isValid &&
+    workExperience.employed.isValid &&
+    workExperience.exp.isValid;
 
   const handleForward = () => {
     // TODO: do for all steps
     if (step === 0) {
       if (isPersonalDetailsOK) {
         goForward();
+        setIsNextPageClicked(false); // reset
+      } else {
+        setIsNextPageClicked(true);
+      }
+    } else if (step === 1) {
+      if (isWorkExpOK) {
+        goForward();
+        setIsNextPageClicked(false); // reset
       } else {
         setIsNextPageClicked(true);
       }
@@ -103,8 +119,10 @@ const Application = () => {
               </TabPanel>
               <TabPanel>
                 <WorkExperienceForm
+                  clickedNext={step === 1 && isNextPageClicked}
                   occupation={occupation}
                   education={education}
+                  workExperience={workExperience}
                 />
               </TabPanel>
               <TabPanel>

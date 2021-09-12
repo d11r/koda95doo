@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 const WarningAlert = (props: { children: ReactNode; isOpen: boolean }) => {
   if (props.isOpen)
     return (
-      <div className="alert alert-warning">
+      <div className="alert alert-warning mt-2">
         <div className="flex-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
