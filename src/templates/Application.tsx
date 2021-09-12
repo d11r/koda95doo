@@ -3,6 +3,8 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { ApplicationAlert } from '../alert/ApplicationAlert';
+import { Checkmark } from '../application/Checkmark';
+import { Cross } from '../application/Cross';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
 import { Spinner } from '../application/Spinner';
@@ -142,7 +144,34 @@ const Application = () => {
           <Logo xl />
           <div className="w-full max-w-3xl mt-4">
             <div className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
-              {submissionState === 'success' ? 'success' : 'error'}
+              <div className="w-full flex flex-col items-center">
+                {submissionState === 'success' ? (
+                  <>
+                    <Checkmark />
+                    <h3 className="text-xl md:text-2xl mt-4 mb-4">
+                      Uspješna prijava!
+                    </h3>
+                    <p className="text-md md:text-xl text-gray-600 text-center">
+                      Hvala, {name.value}! Zapremili smo tvoju prijavu. E-mail
+                      će ti uskoro stići sa potvrdom svih detalja. Kada se
+                      prilika ukaže, javićemo ti putem br. telefona ili e-pošte.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Cross />
+                    <h3 className="text-xl md:text-2xl mt-4 mb-4">
+                      Neuspješna prijava.
+                    </h3>
+                    <p className="text-md md:text-xl text-gray-600 text-center">
+                      Hvala, {name.value}! Nažalost nismo uspjeli da procesiramo
+                      tvoju prijavu. Najvjerovatnije je naša greška koju već
+                      pokušavamo riješiti. Probajte ponovo kasnije. Ukoliko se
+                      greška opet desi, pošaljite e-mail na posao@koda95doo.com.
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </Section>
