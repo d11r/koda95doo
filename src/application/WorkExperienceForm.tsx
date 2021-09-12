@@ -4,6 +4,12 @@ import { InputLabel } from './InputLabel';
 import { EducationsType } from './useEducation';
 import { OccupationsType } from './useOccupations';
 
+const handleChange =
+  (updater: Function) =>
+  (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    updater(e.target.value);
+  };
+
 const WorkExperienceForm = (props: {
   occupation: {
     occupationList: OccupationsType;
@@ -25,6 +31,8 @@ const WorkExperienceForm = (props: {
             className="select select-bordered w-full"
             defaultValue="Odaberi svoje zanimanje"
             id="occupation"
+            value={props.occupation.value}
+            onChange={handleChange(props.occupation.setValue)}
           >
             <option disabled={true}>Odaberi svoje zanimanje</option>
             {props.occupation.occupationList.map((option) => (
@@ -38,6 +46,8 @@ const WorkExperienceForm = (props: {
             className="select select-bordered w-full"
             defaultValue="Odaberi nivo obrazovanja"
             id="edu"
+            value={props.education.value}
+            onChange={handleChange(props.education.setValue)}
           >
             <option disabled={true}>Odaberi nivo obrazovanja</option>
             {props.education.eduList.map((option) => (
