@@ -1,4 +1,4 @@
-import { initializeApp, getApps } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -11,9 +11,7 @@ const firebaseConfig = {
   measurementId: process.env.MEASUREMENT_ID,
 };
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
+initializeApp(firebaseConfig);
 
 const APPLICATIONS_DB_NAME = 'job_applications';
 
