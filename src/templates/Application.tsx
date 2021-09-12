@@ -20,6 +20,7 @@ import { WorkExperienceForm } from '../application/WorkExperienceForm';
 import { Background } from '../background/Background';
 import { FooterCopyright } from '../footer/FooterCopyright';
 import { Section } from '../layout/Section';
+import { post } from '../utils/firebase';
 import { Logo } from './Logo';
 
 const Application = () => {
@@ -90,29 +91,19 @@ const Application = () => {
     }
   };
 
-  function encode(data: any) {
-    return Object.keys(data)
-      .map(
-        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-      )
-      .join('&');
-  }
-
-  const sendToFirebase = (submissionData: any) => {
-    console.log(submissionData);
+  const sendToFirebase = async (submissionData: any) => {
+    await post(submissionData);
   };
 
   const finish = async () => {
     if (isWishesOK) {
-      // TODO: submit all data
-      // maybe firebase
-      const submissionData = encode({
+      const submissionData = {
         // 1st page
-        name,
-        surname,
-        email,
-        phone,
-        'year-of-birth': yob,
+        name: name.value,
+        surname: surname.value,
+        email: email.value,
+        phone: phone.value,
+        'year-of-birth': yob.value,
         citizenship: selected,
         // 2nd page
         occupation: occupation.value,
@@ -127,8 +118,8 @@ const Application = () => {
         'countries-of-work': workCountry.selected,
         'immediately-available': wishes.availableNow.value,
         'special-requests': wishes.specialRequests.value,
-      });
-      sendToFirebase(submissionData);
+      };
+      await sendToFirebase(submissionData);
       // TODO: navigate to thanks screen
     } else {
       setIsNextPageClicked(true);
