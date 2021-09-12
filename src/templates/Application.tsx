@@ -98,12 +98,15 @@ const Application = () => {
       .join('&');
   }
 
-  const sendToNetlify = async () => {
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': 'form-name',
+  const sendToFirebase = (submissionData: any) => {
+    console.log(submissionData);
+  };
+
+  const finish = async () => {
+    if (isWishesOK) {
+      // TODO: submit all data
+      // maybe firebase
+      const submissionData = encode({
         // 1st page
         name,
         surname,
@@ -124,17 +127,9 @@ const Application = () => {
         'countries-of-work': workCountry.selected,
         'immediately-available': wishes.availableNow.value,
         'special-requests': wishes.specialRequests.value,
-      }),
-    })
-      .then(() => alert('submitted'))
-      .catch((error) => alert(error));
-  };
-
-  const finish = () => {
-    if (isWishesOK) {
-      // TODO: submit all data
-      // maybe netlify forms? or firebase
-      sendToNetlify();
+      });
+      sendToFirebase(submissionData);
+      // TODO: navigate to thanks screen
     } else {
       setIsNextPageClicked(true);
     }
@@ -145,10 +140,7 @@ const Application = () => {
       <Section yPadding="py-6 flex flex-col items-center min-h-screen">
         <Logo xl />
         <div className="w-full max-w-3xl mt-4">
-          <form
-            data-netlify="true"
-            className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden"
-          >
+          <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
             <input
               type="hidden"
               name="form-name"
