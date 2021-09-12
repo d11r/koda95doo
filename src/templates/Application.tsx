@@ -96,13 +96,8 @@ const Application = () => {
     }
   };
 
-  const sendToFirebase = async (submissionData: any) => {
-    const isSuccess = await post(submissionData);
-    if (isSuccess) {
-      setSubmissionState('success');
-    } else {
-      setSubmissionState('error');
-    }
+  const sendEmail = async () => {
+    // todo
   };
 
   const finish = async () => {
@@ -130,7 +125,16 @@ const Application = () => {
         'special-requests': wishes.specialRequests.value,
       };
       setIsLoading(true);
-      await sendToFirebase(submissionData);
+      const isSuccess = await post(submissionData);
+
+      if (isSuccess) {
+        // send email
+        await sendEmail();
+        setSubmissionState('success');
+      } else {
+        setSubmissionState('error');
+      }
+
       setIsLoading(false);
     } else {
       setIsNextPageClicked(true);
