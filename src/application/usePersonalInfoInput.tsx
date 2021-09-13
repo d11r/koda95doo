@@ -10,7 +10,7 @@ function validateEmail(email: string): boolean {
 function validatePhone(phone: string): boolean {
   try {
     const phoneUtil = PhoneNumberUtil.getInstance();
-    return phoneUtil.isValidNumber(phoneUtil.parse(phone));
+    return phoneUtil.isValidNumber(phoneUtil.parse(`+${phone}`));
   } catch (e: any) {
     return false;
   }

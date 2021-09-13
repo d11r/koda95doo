@@ -2,6 +2,7 @@ import React from 'react';
 
 import className from 'classnames';
 import DatePicker from 'react-datepicker';
+import PhoneInput from 'react-phone-input-2';
 
 import { InputLabel } from './InputLabel';
 import {
@@ -11,6 +12,7 @@ import {
 import { WarningAlert } from './WarningAlert';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-phone-input-2/lib/style.css';
 
 const handleChange =
   (updater: Function) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +46,10 @@ const PersonalDetailsForm = (props: {
   const nameCN = className(inputCN, { 'input-warning': !name.isValid });
   const surnameCN = className(inputCN, { 'input-warning': !surname.isValid });
   const emailCN = className(inputCN, { 'input-warning': !email.isValid });
-  const phoneCN = className(inputCN, { 'input-warning': !phone.isValid });
+  const phoneCN = className(inputCN, {
+    'input-warning': !phone.isValid,
+    'px-0': true,
+  });
   const yobCN = className(inputCN, { 'input-warning': !yob.isValid });
 
   const getErrors = () => {
@@ -111,14 +116,27 @@ const PersonalDetailsForm = (props: {
             label="Broj mobilnog telefona"
             tooltip="Sa pozivnim brojem"
           />
-          <input
-            type="tel"
-            id="tel"
-            autoComplete="tel"
-            className={phoneCN}
-            placeholder="Sa pozivnim kodom, npr. +387 65 123 456"
+          <PhoneInput
             value={phone.value}
-            onChange={handleChange(phone.setValue)}
+            onChange={(phoneNumber: string) => phone.setValue(phoneNumber)}
+            onlyCountries={[
+              'rs',
+              'ba',
+              'hr',
+              'al',
+              'me',
+              'mk',
+              'si',
+              'at',
+              'de',
+              'ch',
+              'gb',
+            ]}
+            containerClass={phoneCN}
+            inputStyle={{ height: '100%', width: '100%' }}
+            alwaysDefaultMask={false}
+            masks={{ ba: '.. ... ...', rs: '.. ... .. ..' }}
+            placeholder="Koristićemo ovaj broj da te kontaktiramo"
           />
         </div>
 

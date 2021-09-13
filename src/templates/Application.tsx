@@ -103,7 +103,7 @@ const Application = () => {
         name: name.value,
         surname: surname.value,
         email: email.value,
-        phone: phone.value,
+        phone: `+${phone.value}`,
         date_of_birth: yob.value,
         citizenship: selected,
         // 2nd page
