@@ -11,9 +11,6 @@ import {
 } from './useCitizenshipSelect';
 import { WarningAlert } from './WarningAlert';
 
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-phone-input-2/lib/style.css';
-
 const handleChange =
   (updater: Function) => (e: React.ChangeEvent<HTMLInputElement>) => {
     updater(e.target.value);
@@ -49,6 +46,7 @@ const PersonalDetailsForm = (props: {
   const phoneCN = className(inputCN, {
     'input-warning': !phone.isValid,
     'px-0': true,
+    'text-base': true,
   });
   const yobCN = className(inputCN, { 'input-warning': !yob.isValid });
 
@@ -57,7 +55,7 @@ const PersonalDetailsForm = (props: {
     if (!name.isValid) errors.push('Polje ime je obavezno');
     if (!surname.isValid) errors.push('Polje prezime je obavezno');
     if (!email.isValid) errors.push('Polje e-pošta nije pravilno uneseno');
-    if (!phone.isValid) errors.push('Unesi br. telefona sa pozivnim brojem');
+    if (!phone.isValid) errors.push('Polje br. telefona nije pravilno uneseno');
     if (!yob.isValid) errors.push('Unesi godinu rođenja');
     if (selected.length === 0) errors.push('Odaberi zemlju državljanstva');
     return errors;
@@ -133,10 +131,15 @@ const PersonalDetailsForm = (props: {
               'gb',
             ]}
             containerClass={phoneCN}
-            inputStyle={{ height: '100%', width: '100%' }}
+            inputStyle={{
+              height: '100%',
+              width: '100%',
+              fontSize: '0.875rem',
+            }}
             alwaysDefaultMask={false}
             masks={{ ba: '.. ... ...', rs: '.. ... .. ..' }}
             placeholder="Koristićemo ovaj broj da te kontaktiramo"
+            country="ba"
           />
         </div>
 
@@ -151,6 +154,8 @@ const PersonalDetailsForm = (props: {
             minDate={new Date('1930')}
             dateFormat="dd.MM.yyyy"
             autoComplete="bday"
+            showYearDropdown
+            dropdownMode="select"
           />
         </div>
         <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">

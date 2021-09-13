@@ -94,6 +94,7 @@ const Application = () => {
         setIsNextPageClicked(true);
       }
     }
+    window.scrollTo(0, 0);
   };
 
   const finish = async () => {
@@ -185,7 +186,7 @@ const Application = () => {
           <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
             <ApplicationAlert
               title="Detaljno ispunite formu"
-              description="Sva polja su obavezna. Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem."
+              description="Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem. Nepotpune i neispravne prijave neće biti razmatrane."
             />
 
             <Tabs selectedIndex={step} onSelect={() => {}}>
