@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { useRouter } from 'next/router';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { ApplicationAlert } from '../alert/ApplicationAlert';
-import { Checkmark } from '../application/Checkmark';
-import { Cross } from '../application/Cross';
 import { LangLicenceForm } from '../application/LangLicenceForm';
 import { PersonalDetailsForm } from '../application/PersonalDetailsForm';
 import { Spinner } from '../application/Spinner';
@@ -31,7 +30,7 @@ const Application = () => {
   const isFinalStep = step === MAX;
   const [isNextPageClicked, setIsNextPageClicked] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [submissionState, setSubmissionState] = React.useState('progress');
+  const router = useRouter();
 
   // for validation
   // 1: personal
@@ -125,58 +124,15 @@ const Application = () => {
       const isSuccess = await post(submissionData);
 
       if (isSuccess) {
-        setSubmissionState('success');
+        router.push('/hvala');
       } else {
-        setSubmissionState('error');
+        router.push('/greska');
       }
-
       setIsLoading(false);
     } else {
       setIsNextPageClicked(true);
     }
   };
-
-  if (submissionState !== 'progress') {
-    return (
-      <Background color="bg-gray-100">
-        <Section yPadding="py-6 flex flex-col items-center min-h-screen">
-          <Logo xl />
-          <div className="w-full max-w-3xl mt-4">
-            <div className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
-              <div className="w-full flex flex-col items-center">
-                {submissionState === 'success' ? (
-                  <>
-                    <Checkmark />
-                    <h3 className="text-xl md:text-2xl mt-4 mb-4">
-                      Uspješna prijava!
-                    </h3>
-                    <p className="text-md md:text-xl text-gray-600 text-center">
-                      Hvala, {name.value}! Zapremili smo tvoju prijavu. E-mail
-                      će ti uskoro stići sa potvrdom svih detalja. Kada se
-                      prilika ukaže, javićemo ti putem br. telefona ili e-pošte.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <Cross />
-                    <h3 className="text-xl md:text-2xl mt-4 mb-4">
-                      Neuspješna prijava.
-                    </h3>
-                    <p className="text-md md:text-xl text-gray-600 text-center">
-                      Hvala, {name.value}! Nažalost nismo uspjeli da procesiramo
-                      tvoju prijavu. Najvjerovatnije je naša greška koju već
-                      pokušavamo riješiti. Probajte ponovo kasnije. Ukoliko se
-                      greška opet desi, pošaljite e-mail na posao@koda95doo.com.
-                    </p>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </Section>
-      </Background>
-    );
-  }
 
   return (
     <Background color="bg-gray-100">
