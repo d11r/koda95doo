@@ -10,13 +10,13 @@ import { Logo } from './Logo';
 
 const Hero = () => (
   <Background color="bg-gray-100">
-    <Section yPadding="py-6">
+    <Section yPadding="py-3">
       <NavbarTwoColumns logo={<Logo xl />}>
         <NavItems />
       </NavbarTwoColumns>
     </Section>
 
-    <Section yPadding="pt-2 md:pt-10 pb-8">
+    <Section yPadding="pt-2 md:pt-6 pb-8">
       <HeroOneButton
         title={
           <>

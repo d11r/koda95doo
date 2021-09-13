@@ -4,6 +4,7 @@ import { PhoneNumberUtil } from 'google-libphonenumber';
 import isEmail from 'validator/lib/isEmail';
 
 function validateEmail(email: string): boolean {
+  if (email.length === 0) return true; // allow not having email addr.
   return isEmail(email);
 }
 

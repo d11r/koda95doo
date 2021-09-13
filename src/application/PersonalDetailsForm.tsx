@@ -79,7 +79,7 @@ const PersonalDetailsForm = (props: {
             id="first-name"
             autoComplete="given-name"
             className={nameCN}
-            placeholder="Ime kao na pasošu"
+            placeholder="Ime"
             value={name.value}
             onChange={handleChange(name.setValue)}
           />
@@ -91,7 +91,7 @@ const PersonalDetailsForm = (props: {
             id="last-name"
             autoComplete="family-name"
             type="text"
-            placeholder="Prezime kao na pasošu"
+            placeholder="Prezime"
             value={surname.value}
             onChange={handleChange(surname.setValue)}
           />
@@ -149,7 +149,7 @@ const PersonalDetailsForm = (props: {
             selected={yob.value}
             onChange={(date: Date) => yob.setValue(date)}
             className={yobCN}
-            placeholderText="Datum rođenja kao na pasošu"
+            placeholderText="Datum rođenja"
             maxDate={new Date(`${new Date().getFullYear() - 17}`)}
             minDate={new Date('1930')}
             dateFormat="dd.MM.yyyy"
