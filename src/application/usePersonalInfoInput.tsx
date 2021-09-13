@@ -16,11 +16,12 @@ function validatePhone(phone: string): boolean {
   }
 }
 
-function validateYob(yob?: number): boolean {
+function validateYob(userYob?: Date): boolean {
   const currentYear = new Date().getFullYear();
   const legalAgeWork = 17;
-  if (!yob) return false;
-  return yob <= currentYear - legalAgeWork && yob >= 1930;
+  if (!userYob) return false;
+  const userYobYear = userYob.getFullYear();
+  return userYobYear <= currentYear - legalAgeWork && userYobYear >= 1930;
 }
 
 const usePersonalInfoInput = () => {
@@ -28,7 +29,7 @@ const usePersonalInfoInput = () => {
   const [surname, setSurname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
-  const [yob, setYob] = React.useState('');
+  const [yob, setYob] = React.useState();
 
   return {
     name: {
@@ -54,7 +55,7 @@ const usePersonalInfoInput = () => {
     yob: {
       value: yob,
       setValue: setYob,
-      isValid: validateYob(Number(yob)),
+      isValid: validateYob(yob),
     },
   };
 };

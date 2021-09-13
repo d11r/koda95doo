@@ -104,21 +104,21 @@ const Application = () => {
         surname: surname.value,
         email: email.value,
         phone: phone.value,
-        'year-of-birth': yob.value,
+        date_of_birth: yob.value,
         citizenship: selected,
         // 2nd page
         occupation: occupation.value,
         education: education.value,
-        'years-of-experience': workExperience.yoe.value,
-        'currently-employed': workExperience.employed.value,
+        years_of_experience: workExperience.yoe.value,
+        currently_employed: workExperience.employed.value,
         'previous-job-desc': workExperience.exp.value,
         // 3rd page
         languages: language.level,
         licences: langAndCert.value,
         // 4th page
-        'countries-of-work': workCountry.selected,
-        'immediately-available': wishes.availableNow.value,
-        'special-requests': wishes.specialRequests.value,
+        countries_of_work: workCountry.selected,
+        immediately_available: wishes.availableNow.value,
+        special_requests: wishes.specialRequests.value,
       };
       setIsLoading(true);
       const isSuccess = await post(submissionData);

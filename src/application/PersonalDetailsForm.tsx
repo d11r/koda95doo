@@ -1,6 +1,7 @@
 import React from 'react';
 
 import className from 'classnames';
+import DatePicker from 'react-datepicker';
 
 import { InputLabel } from './InputLabel';
 import {
@@ -8,6 +9,8 @@ import {
   CitizenshipUnionType,
 } from './useCitizenshipSelect';
 import { WarningAlert } from './WarningAlert';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 const handleChange =
   (updater: Function) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +24,7 @@ const PersonalDetailsForm = (props: {
     surname: { value: string; setValue: Function; isValid: boolean };
     email: { value: string; setValue: Function; isValid: boolean };
     phone: { value: string; setValue: Function; isValid: boolean };
-    yob: { value: string; setValue: Function; isValid: boolean };
+    yob: { value: Date | undefined; setValue: Function; isValid: boolean };
     countries: {
       countryList: CitizenshipCountriesType;
       selected: CitizenshipUnionType[];
@@ -120,17 +123,16 @@ const PersonalDetailsForm = (props: {
         </div>
 
         <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">
-          <InputLabel for="yob" label="Godina rođenja" />
-          <input
-            type="number"
-            id="yob"
-            autoComplete="bday-year"
-            min={1940}
-            max={new Date().getFullYear() - 17}
+          <InputLabel for="yob" label="Datum rođenja" />
+          <DatePicker
+            selected={yob.value}
+            onChange={(date: Date) => yob.setValue(date)}
             className={yobCN}
-            value={yob.value}
-            onChange={handleChange(yob.setValue)}
-            placeholder="Godina kao na pasošu (primjer 1989)"
+            placeholderText="Datum rođenja kao na pasošu"
+            maxDate={new Date(`${new Date().getFullYear() - 17}`)}
+            minDate={new Date('1930')}
+            dateFormat="dd.MM.yyyy"
+            autoComplete="bday"
           />
         </div>
         <div className="w-full md:w-1/2 px-3 mb-6 md:mt-6 md:mb-0">
