@@ -19,12 +19,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             ReactPixel.init(process.env.NEXT_PUBLIC_PIXEL_ID);
             ReactPixel.pageView();
 
-            Router.events.on('routeChangeComplete', (url: string) => {
-              if (url === '/prijava/') {
-                ReactPixel.trackCustom('InitiateSubmitApplication', null);
-              } else if (url === '/hvala/') {
-                ReactPixel.track('SubmitApplication', null);
-              }
+            Router.events.on('routeChangeComplete', () => {
               ReactPixel.pageView();
             });
           }
