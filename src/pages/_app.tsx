@@ -18,8 +18,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           if (process.env.NEXT_PUBLIC_PIXEL_ID) {
             ReactPixel.init(process.env.NEXT_PUBLIC_PIXEL_ID);
             ReactPixel.pageView();
+            ReactPixel.track('ViewContent', null);
 
-            Router.events.on('routeChangeComplete', () => {
+            Router.events.on('routeChangeComplete', (url: string) => {
+              if (url === '/prijava/') {
+                ReactPixel.trackCustom('InitiateCheckout', null);
+              } else if (url === '/hvala/') {
+                ReactPixel.track('SubmitApplication', null);
+              }
               ReactPixel.pageView();
             });
           }
