@@ -39,11 +39,13 @@ const WorkExperienceForm = (props: {
     input: true,
     'input-bordered': true,
     'w-full': true,
+    'text-base': true,
   };
   const selectCN = {
     select: true,
     'select-bordered': true,
     'w-full': true,
+    'text-base': true,
   };
 
   const occupationCN = className(selectCN, {
@@ -61,6 +63,7 @@ const WorkExperienceForm = (props: {
     'textarea-bordered': true,
     'w-full': true,
     'textarea-warning': !props.workExperience.exp.isValid,
+    'text-base': true,
   });
 
   const getErrors = () => {
@@ -143,7 +146,7 @@ const WorkExperienceForm = (props: {
           <InputLabel for="currently-employed" label="Trenutno zaposlenje" />
           <div className="form-control">
             <label className="cursor-pointer label">
-              <span className="label-text">Trenutno zaposlen/a?</span>
+              <span className="label-text text-base">Trenutno zaposlen/a?</span>
               <input
                 type="checkbox"
                 id="currently-employed"

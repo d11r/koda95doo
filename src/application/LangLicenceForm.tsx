@@ -34,7 +34,7 @@ const LangKnowledgeLevels = (props: {
   ) => void;
 }) => (
   <select
-    className="select select-bordered flex-grow ml-2 w-1/2"
+    className="select select-bordered flex-grow ml-2 w-1/2 text-base"
     id={props.id}
     value={props.value}
     onChange={handleLangChange(props.changeValue)}
@@ -90,6 +90,7 @@ const LangLicenceForm = (props: {
     'textarea-bordered': true,
     'w-full': true,
     'textarea-warning': !props.langAndCert.isValid,
+    'text-base': true,
   });
 
   const getErrors = () => {
@@ -126,7 +127,7 @@ const LangLicenceForm = (props: {
             />
           ))}
         </div>
-        <div className="w-full px-3 mb-6 md:mb-0">
+        <div className="w-full px-3 mb-6 mt-6 md:mb-0">
           <InputLabel
             for="licence"
             label="Licence, kursevi, priznanja i nagrade"

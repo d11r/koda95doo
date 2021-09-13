@@ -38,6 +38,7 @@ const PersonalDetailsForm = (props: {
     input: true,
     'input-bordered': true,
     'w-full': true,
+    'text-base': true,
   };
 
   const nameCN = className(inputCN, { 'input-warning': !name.isValid });
@@ -134,7 +135,7 @@ const PersonalDetailsForm = (props: {
             inputStyle={{
               height: '100%',
               width: '100%',
-              fontSize: '0.875rem',
+              fontSize: '1rem',
             }}
             alwaysDefaultMask={false}
             masks={{ ba: '.. ... ...', rs: '.. ... .. ..' }}
@@ -164,7 +165,7 @@ const PersonalDetailsForm = (props: {
           <div className="form-control">
             {countryList.map((country) => (
               <label className="cursor-pointer label" key={country}>
-                <span className="label-text">{country}</span>
+                <span className="label-text text-base">{country}</span>
                 <input
                   type="checkbox"
                   checked={selected.includes(country)}

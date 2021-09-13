@@ -29,6 +29,7 @@ const WishesForm = (props: {
     'textarea-bordered': true,
     'w-full': true,
     'textarea-warning': !props.wishes.specialRequests.isValid,
+    'text-base': true,
   });
   const getErrors = () => {
     const errors = [];
@@ -57,7 +58,7 @@ const WishesForm = (props: {
           <div className="form-control">
             {props.workCountry.countryList.map((country) => (
               <label className="cursor-pointer label" key={country}>
-                <span className="label-text">{country}</span>
+                <span className="label-text text-base">{country}</span>
                 <input
                   type="checkbox"
                   checked={props.workCountry.selected.includes(country)}
@@ -76,7 +77,7 @@ const WishesForm = (props: {
           />
           <div className="form-control">
             <label className="cursor-pointer label">
-              <span className="label-text">Možeš početi odmah?</span>
+              <span className="label-text text-base">Možeš početi odmah?</span>
               <input
                 type="checkbox"
                 checked={props.wishes.availableNow.value}
