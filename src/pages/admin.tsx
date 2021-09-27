@@ -18,7 +18,6 @@ const AdminLoginPage = () => {
     // todo: redirect to new route
     // todo: make route restricted
     // todo: redirect away from that route if auth isn't completed
-    console.log('redirecting...');
     setIsAuthenticated(true);
   };
 

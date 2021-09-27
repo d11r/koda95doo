@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { getSubmissionCount } from '../utils/firebase';
+import { Spinner } from '../application/Spinner';
+import { getCollections, getSubmissionCount } from '../utils/firebase';
 
 const UserTable = () => {
   return (
@@ -219,20 +220,23 @@ const StatList = () => {
   const [allCount, setAllCount] = React.useState(0);
   React.useEffect(() => {
     async function populateAllCount() {
-      const count = await getSubmissionCount();
-      setAllCount(count);
+      const docs = await getCollections();
+      setAllCount(getSubmissionCount(docs));
     }
     populateAllCount();
   }, []);
   return (
-    <div className="w-full shadow stats mb-8">
-      <div className="stat place-items-center place-content-center">
+    <div className="shadow stats mb-8">
+      <div className="stat">
         <div className="stat-title">Ukupno prijava</div>
-        <div className="stat-value">{allCount}</div>
-      </div>
-      <div className="stat place-items-center place-content-center">
-        <div className="stat-title">Nove prijave danas</div>
-        <div className="stat-value text-success">4,200</div>
+        <div className="stat-value text-success">
+          {allCount === 0 ? (
+            <Spinner color="primary" />
+          ) : (
+            new Intl.NumberFormat('rs-RS').format(allCount)
+          )}
+        </div>
+        <div className="stat-desc">od 25.09.2021</div>
       </div>
     </div>
   );

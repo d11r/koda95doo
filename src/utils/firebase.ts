@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  DocumentData,
+  QuerySnapshot,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -25,15 +32,23 @@ const post = async (submissionData: any) => {
   }
 };
 
-const getSubmissionCount = async () => {
+const getCollections = async () => {
   try {
-    const docsSnapshot = await getDocs(
-      collection(firestore, APPLICATIONS_DB_NAME)
-    );
-    return docsSnapshot.size;
+    return await getDocs(collection(firestore, APPLICATIONS_DB_NAME));
+  } catch (e: any) {
+    return null;
+  }
+};
+
+const getSubmissionCount = (
+  docsSnapshot: QuerySnapshot<DocumentData> | null
+) => {
+  try {
+    if (docsSnapshot != null) return docsSnapshot.size;
+    return 0;
   } catch (e: any) {
     return 0;
   }
 };
 
-export { firestore, post, getSubmissionCount };
+export { firestore, post, getSubmissionCount, getCollections };
