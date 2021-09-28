@@ -1,74 +1,38 @@
-import React, { KeyboardEventHandler } from 'react';
+import React from 'react';
 
-import { useAdminLoginInput } from '../admin/useAdminLoginInput';
-import { Spinner } from '../application/Spinner';
-import { Dashboard } from '../dashboard/Dashboard';
-
-const handleChange =
-  (updater: Function) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    updater(e.target.value);
-  };
+import { AuthContext, Dashboard } from '../dashboard/Dashboard';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { signIn } from '../utils/firebase';
 
 const AdminLoginPage = () => {
-  const { value, setValue } = useAdminLoginInput();
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [user, setUser] = useLocalStorage('KODA95DOO_USER', null);
 
-  const redirectToAdminPanel = () => {
-    // todo: redirect to new route
-    // todo: make route restricted
-    // todo: redirect away from that route if auth isn't completed
-    setIsAuthenticated(true);
-  };
-
-  const handleSubmit = () => {
-    // todo: really check if pw is allowed
-    setIsSubmitting(true);
-    if (value === 'Dado') {
-      redirectToAdminPanel();
-      setIsSubmitting(false);
+  const handleSubmit = async () => {
+    const googleUser = await signIn();
+    if (!googleUser) {
+      setUser(null);
     }
-    // todo: if unsuccessful, have them have one more try
-    setIsSubmitting(false);
+    setUser(googleUser);
   };
-
-  const handleKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    }
-  };
-
-  if (isAuthenticated) {
-    return <Dashboard />;
-  }
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="container mx-auto">
-        <div className="card text-center shadow-2xl">
-          <div className="card-body">
-            <div className="form-control">
-              <div className="relative">
-                <input
-                  placeholder="magična riječ"
-                  className="w-full pr-16 input input-primary input-bordered"
-                  type="password"
-                  value={value}
-                  onChange={handleChange(setValue)}
-                  onKeyDown={handleKeydown}
-                />
-                <button
-                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                  onClick={handleSubmit}
-                >
-                  {isSubmitting && <Spinner />} prijavi se
+    <AuthContext.Provider value={{ user, setUser }}>
+      {user == null ? (
+        <div className="h-screen flex justify-center items-center">
+          <div className="mx-auto max-w-l">
+            <div className="card text-center shadow-2xl ">
+              <div className="card-body">
+                <button className="btn btn-accent " onClick={handleSubmit}>
+                  Prijavi se preko Google
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <Dashboard />
+      )}
+    </AuthContext.Provider>
   );
 };
 

@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAuth,
+  User,
+  signOut,
+} from 'firebase/auth';
+import {
   getFirestore,
   collection,
   addDoc,
@@ -36,6 +43,7 @@ const getCollections = async () => {
   try {
     return await getDocs(collection(firestore, APPLICATIONS_DB_NAME));
   } catch (e: any) {
+    console.error(e);
     return null;
   }
 };
@@ -51,4 +59,30 @@ const getSubmissionCount = (
   }
 };
 
-export { firestore, post, getSubmissionCount, getCollections };
+const authProvider = new GoogleAuthProvider();
+
+const signIn = () => {
+  return new Promise<User>((resolve, reject) => {
+    const auth = getAuth();
+    signInWithPopup(auth, authProvider)
+      .then((result) => {
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        const { user } = result;
+        resolve(user);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export {
+  firestore,
+  post,
+  getSubmissionCount,
+  getCollections,
+  authProvider,
+  signIn,
+  signOut,
+};
