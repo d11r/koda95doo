@@ -58,7 +58,6 @@ const UserTable = ({
       headerName: 'Opis poslova',
       width: 320,
       sortable: false,
-      type: 'text',
     },
   ];
 
@@ -96,11 +95,11 @@ const UserTable = ({
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={10}
         autoHeight={true}
         disableSelectionOnClick
         className="w-full"
         autoPageSize={true}
+        pageSize={20}
         density="compact"
         loading={submissions == null || submissions.size < 1}
       />
