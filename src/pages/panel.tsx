@@ -3,30 +3,13 @@ import React from 'react';
 import { User } from 'firebase/auth';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import BTable from 'react-bootstrap/Table';
-import {
-  useTable,
-  useExpanded,
-  UseExpandedRowProps,
-  UseGroupByRowProps,
-  UseRowSelectRowProps,
-  UseRowStateRowProps,
-} from 'react-table';
+import { useTable, useExpanded, usePagination } from 'react-table';
 
 import { Spinner } from '../application/Spinner';
 import { getCollections, getSubmissionCount } from '../utils/firebase';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/display-name */
-
-export interface Row<
-  D extends Record<string, unknown> = Record<string, unknown>
-> extends UseExpandedRowProps<D>,
-    UseGroupByRowProps<D>,
-    UseRowSelectRowProps<D>,
-    UseRowStateRowProps<D> {}
 
 export const AuthContext = React.createContext<{
   user: User | null;
@@ -54,7 +37,7 @@ const UserTable = ({
       {
         Header: () => null,
         id: 'expander',
-        Cell: ({ row }: { row: Row }) => (
+        Cell: ({ row }: { row: any }) => (
           <span {...row.getToggleRowExpandedProps()}>
             {row.isExpanded ? '👇' : '👉'}
           </span>
@@ -125,16 +108,26 @@ const UserTable = ({
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
     visibleColumns,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
       data,
     },
-    useExpanded
-  );
+    useExpanded,
+    usePagination
+  ) as any;
 
   // Create a function that will render our row sub components
   const renderRowSubComponent = React.useCallback(
@@ -151,40 +144,102 @@ const UserTable = ({
   );
 
   return (
-    <BTable responsive striped bordered hover size="sm" {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row: any) => {
-          prepareRow(row);
-          return (
-            <>
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell: any) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  );
-                })}
-              </tr>
-              {row.isExpanded ? (
-                <tr>
-                  <td colSpan={visibleColumns.length}>
-                    {renderRowSubComponent({ row })}
-                  </td>
+    <>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup: any) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column: any) => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row: any) => {
+            prepareRow(row);
+            return (
+              <React.Fragment key={`${row.id}-${row.isExpanded}`}>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell: any) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    );
+                  })}
                 </tr>
-              ) : null}
-            </>
-          );
-        })}
-      </tbody>
-    </BTable>
+                {row.isExpanded ? (
+                  <tr {...row.getRowProps()} key="row-expanded">
+                    <td colSpan={visibleColumns.length}>
+                      {renderRowSubComponent({ row })}
+                    </td>
+                  </tr>
+                ) : null}
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="mt-4">
+        <button
+          className="btn btn-square btn-xs"
+          onClick={() => gotoPage(0)}
+          disabled={!canPreviousPage}
+        >
+          {'<<'}
+        </button>{' '}
+        <button
+          className="btn btn-square btn-xs"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          {'<'}
+        </button>{' '}
+        <button
+          className="btn btn-square btn-xs"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          {'>'}
+        </button>{' '}
+        <button
+          className="btn btn-square btn-xs"
+          onClick={() => gotoPage(pageCount - 1)}
+          disabled={!canNextPage}
+        >
+          {'>>'}
+        </button>{' '}
+        <span>
+          Stranica{' '}
+          <strong>
+            {pageIndex + 1} od {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <span>
+          | Idi na stranicu:{' '}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const newPage = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(newPage);
+            }}
+            style={{ width: '100px' }}
+          />
+        </span>{' '}
+        <select
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((newPageSize) => (
+            <option key={newPageSize} value={newPageSize}>
+              Pokaži {newPageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+    </>
   );
 };
 
