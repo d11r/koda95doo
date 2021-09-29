@@ -5,6 +5,8 @@ import {
   getAuth,
   User,
   signOut,
+  setPersistence,
+  browserLocalPersistence,
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -43,7 +45,6 @@ const getCollections = async () => {
   try {
     return await getDocs(collection(firestore, APPLICATIONS_DB_NAME));
   } catch (e: any) {
-    console.error(e);
     return null;
   }
 };
@@ -60,10 +61,11 @@ const getSubmissionCount = (
 };
 
 const authProvider = new GoogleAuthProvider();
+const auth = getAuth(app);
 
 const signIn = () => {
   return new Promise<User>((resolve, reject) => {
-    const auth = getAuth();
+    setPersistence(auth, browserLocalPersistence);
     signInWithPopup(auth, authProvider)
       .then((result) => {
         // const credential = GoogleAuthProvider.credentialFromResult(result);

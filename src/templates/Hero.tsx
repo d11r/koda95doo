@@ -12,7 +12,7 @@ const Hero = () => (
   <Background color="bg-gray-100">
     <Section yPadding="py-3">
       <NavbarTwoColumns logo={<Logo xl />}>
-        <NavItems />
+        <NavItems topHeader={true} />
       </NavbarTwoColumns>
     </Section>
 

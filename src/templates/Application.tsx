@@ -142,7 +142,7 @@ const Application = () => {
           <form className="bg-white shadow-md rounded px-2 md:px-8 pt-6 pb-8 mb-4 overflow-x-hidden">
             <ApplicationAlert
               title="Detaljno ispunite formu"
-              description="Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem. Nepotpune i neispravne prijave neće biti razmatrane."
+              description="Što više informacija imamo o tvojim prošlim radnim iskustvima to ćemo te bolje moći spojiti sa poslodavcem. Nepotpune i neispravne prijave neće biti razmatrane. Slanjem prijave indikujete da se slažete sa našim uslovima korištenja i polisom privatnosti."
             />
 
             <Tabs selectedIndex={step} onSelect={() => {}}>

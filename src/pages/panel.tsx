@@ -1,16 +1,28 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { getAuth, User } from 'firebase/auth';
+import { User } from 'firebase/auth';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 
 import { Spinner } from '../application/Spinner';
-import { getCollections, getSubmissionCount, signOut } from '../utils/firebase';
+import { getCollections, getSubmissionCount } from '../utils/firebase';
 
 export const AuthContext = React.createContext<{
   user: User | null;
   setUser: Function;
 } | null>(null);
+
+const NavBar = () => {
+  return (
+    <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+      <div className="flex-1 px-2 mx-2">
+        <span className="text-lg font-bold">KODA95doo</span>
+      </div>
+      <div className="flex-none">{/* todo: actions here */}</div>
+    </div>
+  );
+};
 
 const UserTable = ({
   submissions,
@@ -104,52 +116,12 @@ const UserTable = ({
         autoHeight={true}
         disableSelectionOnClick
         className="w-full"
-        autoPageSize={true}
         pageSize={20}
+        rowsPerPageOptions={[20]}
         density="compact"
         loading={submissions == null || submissions.size < 1}
       />
     </div>
-  );
-};
-
-const NavHeader = () => {
-  const authContext = useContext(AuthContext);
-  const logout = () => {
-    if (authContext && authContext.setUser) {
-      authContext.setUser(null);
-    }
-    signOut(getAuth());
-  };
-  return (
-    <nav className="flex items-center justify-between flex-wrap bg-accent p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-xl tracking-tight">KODA95doo</span>
-      </div>
-      <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-          <svg
-            className="fill-current h-3 w-3"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-      </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow"></div>
-        <div>
-          <button
-            onClick={logout}
-            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 hover:text-accent"
-          >
-            Odjavi se
-          </button>
-        </div>
-      </div>
-    </nav>
   );
 };
 
@@ -158,14 +130,14 @@ const StatList = ({ allCount }: { allCount: number | bigint }) => {
     <div className="shadow stats mb-4">
       <div className="stat">
         <div className="stat-title">Ukupno prijava</div>
-        <div className="stat-value text-success">
-          {allCount === 0 ? (
-            <Spinner color="primary" />
+        <div className="stat-value text-accent">
+          {allCount == null || allCount === 0 ? (
+            <Spinner color="accent" />
           ) : (
-            new Intl.NumberFormat('rs-RS').format(allCount)
+            new Intl.NumberFormat('en-EN').format(allCount)
           )}
         </div>
-        <div className="stat-desc">od 25.09.2021</div>
+        <div className="stat-desc">Od 25.09.2021.</div>
       </div>
     </div>
   );
@@ -175,6 +147,7 @@ const Dashboard = () => {
   const [allSubmissions, setAllSubmissions] =
     React.useState<QuerySnapshot<DocumentData> | null>(null);
   const [isError, setIsError] = React.useState(false);
+  const router = useRouter();
   React.useEffect(() => {
     (async function populateAllCount() {
       const submissions = await getCollections();
@@ -186,8 +159,17 @@ const Dashboard = () => {
     })();
   }, []);
 
+  const authContext = React.useContext(AuthContext);
+  React.useEffect(() => {
+    if (authContext == null) {
+      router.replace('/admin');
+    } else if (authContext.user == null) {
+      router.replace('/admin');
+    }
+  }, [authContext, router]);
+
   return isError ? (
-    <div className="flex flex-col container mx-auto px-2 md:px-0 mt-4">
+    <div className="container mx-auto px-2 md:px-0 mt-4">
       <div className="alert alert-error">
         <div className="flex-1">
           <svg
@@ -209,8 +191,8 @@ const Dashboard = () => {
     </div>
   ) : (
     <>
-      <NavHeader />
-      <div className="flex flex-col container mx-auto px-2 md:px-0 mt-4">
+      <NavBar />
+      <div className="container mx-auto px-2 md:px-0 mt-4">
         <StatList allCount={getSubmissionCount(allSubmissions)} />
         <UserTable submissions={allSubmissions} />
       </div>
@@ -218,4 +200,4 @@ const Dashboard = () => {
   );
 };
 
-export { Dashboard };
+export default Dashboard;

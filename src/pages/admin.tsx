@@ -1,38 +1,35 @@
 import React from 'react';
 
-import { AuthContext, Dashboard } from '../dashboard/Dashboard';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useRouter } from 'next/router';
+
 import { signIn } from '../utils/firebase';
+import { AuthContext } from './panel';
 
 const AdminLoginPage = () => {
-  const [user, setUser] = useLocalStorage('KODA95DOO_USER', null);
-
+  const authContext = React.useContext(AuthContext);
+  const router = useRouter();
   const handleSubmit = async () => {
     const googleUser = await signIn();
     if (!googleUser) {
-      setUser(null);
+      authContext?.setUser(null);
+    } else {
+      authContext?.setUser(googleUser);
+      router.replace('/panel');
     }
-    setUser(googleUser);
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {user == null ? (
-        <div className="h-screen flex justify-center items-center">
-          <div className="mx-auto max-w-l">
-            <div className="card text-center shadow-2xl ">
-              <div className="card-body">
-                <button className="btn btn-accent " onClick={handleSubmit}>
-                  Prijavi se preko Google
-                </button>
-              </div>
-            </div>
+    <div className="h-screen flex justify-center items-center">
+      <div className="mx-auto max-w-l">
+        <div className="card text-center shadow-2xl ">
+          <div className="card-body">
+            <button className="btn btn-accent" onClick={handleSubmit}>
+              Prijavi se preko Google
+            </button>
           </div>
         </div>
-      ) : (
-        <Dashboard />
-      )}
-    </AuthContext.Provider>
+      </div>
+    </div>
   );
 };
 
