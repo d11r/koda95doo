@@ -1,12 +1,32 @@
 import React from 'react';
 
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { User } from 'firebase/auth';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import BTable from 'react-bootstrap/Table';
+import {
+  useTable,
+  useExpanded,
+  UseExpandedRowProps,
+  UseGroupByRowProps,
+  UseRowSelectRowProps,
+  UseRowStateRowProps,
+} from 'react-table';
 
 import { Spinner } from '../application/Spinner';
 import { getCollections, getSubmissionCount } from '../utils/firebase';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/display-name */
+
+export interface Row<
+  D extends Record<string, unknown> = Record<string, unknown>
+> extends UseExpandedRowProps<D>,
+    UseGroupByRowProps<D>,
+    UseRowSelectRowProps<D>,
+    UseRowStateRowProps<D> {}
 
 export const AuthContext = React.createContext<{
   user: User | null;
@@ -29,99 +49,142 @@ const UserTable = ({
 }: {
   submissions: QuerySnapshot<DocumentData> | null;
 }) => {
-  const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Ime', sortable: false, width: 160 },
-    {
-      field: 'education',
-      headerName: 'Obrazovanje',
-      sortable: true,
-      width: 160,
-    },
-    {
-      field: 'occupation',
-      headerName: 'Zanimanje',
-      sortable: true,
-      width: 200,
-    },
-    {
-      field: 'yoe',
-      headerName: 'Iskustvo',
-      sortable: true,
-      width: 120,
-      disableColumnMenu: true,
-      type: 'number',
-    },
-    {
-      field: 'currentlyEmployed',
-      headerName: 'Zaposlen',
-      width: 120,
-      type: 'boolean',
-      disableColumnMenu: true,
-    },
-    {
-      field: 'languages',
-      headerName: 'Jezici',
-      width: 160,
-      sortable: false,
-    },
-    {
-      field: 'dateOfBirth',
-      headerName: 'Datum rođ.',
-      sortable: true,
-      width: 160,
-      type: 'date',
-    },
-    {
-      field: 'exp',
-      headerName: 'Opis poslova',
-      width: 320,
-      sortable: false,
-    },
-  ];
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: () => null,
+        id: 'expander',
+        Cell: ({ row }: { row: Row }) => (
+          <span {...row.getToggleRowExpandedProps()}>
+            {row.isExpanded ? '👇' : '👉'}
+          </span>
+        ),
+      },
+      {
+        Header: 'Lične info',
+        columns: [
+          { accessor: 'name', Header: 'Ime' },
+          { accessor: 'dateOfBirth', Header: 'Datum rođ.' },
+        ],
+      },
+      {
+        Header: 'Vještine',
+        columns: [
+          { accessor: 'education', Header: 'Obrazovanje' },
+          { accessor: 'languages', Header: 'Jezici' },
+        ],
+      },
+      {
+        Header: 'Posao',
+        columns: [
+          { accessor: 'occupation', Header: 'Zanimanje' },
+          { accessor: 'yoe', Header: 'Iskustvo' },
+          { accessor: 'currentlyEmployed', Header: 'Zaposlen' },
+          // { accessor: 'exp', Header: 'Opis poslova' },
+        ],
+      },
+    ],
+    []
+  );
 
-  const rows =
-    submissions != null
-      ? submissions?.docs.map((submission, index) => {
-          const doc = submission.data();
-          return {
-            // personal info
-            id: index + 1,
-            name: `${doc.name} ${doc.surname}`,
-            email: doc.email,
-            phone: doc.phone,
-            dateOfBirth: new Date(doc.date_of_birth.seconds * 1000),
-            // Education and work
-            education: doc.education,
-            occupation: doc.occupation,
-            yoe: doc.years_of_experience,
-            licences: doc.licences,
-            exp: doc['previous-job-desc'],
-            // Availability and requests
-            availableNow: doc.immediately_available,
-            requests: doc.special_requests,
-            currentlyEmployed: doc.currently_employed,
-            // Languages
-            languages: Object.keys(doc.languages)
-              .filter((x) => doc.languages[x].value !== 'Bez znanja')
-              .join(', '),
-          };
-        })
-      : [];
+  const data = React.useMemo(
+    () =>
+      submissions != null
+        ? submissions?.docs.map((submission, index) => {
+            const doc = submission.data();
+            return {
+              // personal info
+              id: index + 1,
+              name: `${doc.name} ${doc.surname}`,
+              email: doc.email,
+              phone: doc.phone,
+              dateOfBirth: new Date(
+                doc.date_of_birth.seconds * 1000
+              ).toLocaleDateString('rs-RS'),
+              // Education and work
+              education: doc.education,
+              occupation: doc.occupation,
+              yoe: doc.years_of_experience,
+              licences: doc.licences,
+              exp: doc['previous-job-desc'],
+              // Availability and requests
+              availableNow: doc.immediately_available,
+              requests: doc.special_requests,
+              currentlyEmployed: doc.currently_employed ? 'Da' : 'Ne',
+              // Languages
+              languages: Object.keys(doc.languages)
+                .filter((x) => doc.languages[x].value !== 'Bez znanja')
+                .join(', '),
+            };
+          })
+        : [],
+    [submissions]
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    visibleColumns,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useExpanded
+  );
+
+  // Create a function that will render our row sub components
+  const renderRowSubComponent = React.useCallback(
+    ({ row }) => (
+      <pre
+        style={{
+          fontSize: '10px',
+        }}
+      >
+        <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
+      </pre>
+    ),
+    []
+  );
 
   return (
-    <div className="w-full">
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        autoHeight={true}
-        disableSelectionOnClick
-        className="w-full"
-        pageSize={20}
-        rowsPerPageOptions={[20]}
-        density="compact"
-        loading={submissions == null || submissions.size < 1}
-      />
-    </div>
+    <BTable responsive striped bordered hover size="sm" {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row: any) => {
+          prepareRow(row);
+          return (
+            <>
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell: any) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  );
+                })}
+              </tr>
+              {row.isExpanded ? (
+                <tr>
+                  <td colSpan={visibleColumns.length}>
+                    {renderRowSubComponent({ row })}
+                  </td>
+                </tr>
+              ) : null}
+            </>
+          );
+        })}
+      </tbody>
+    </BTable>
   );
 };
 
