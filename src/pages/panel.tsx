@@ -131,16 +131,18 @@ const UserTable = ({
 
   // Create a function that will render our row sub components
   const renderRowSubComponent = React.useCallback(
-    ({ row }) => (
-      <pre
-        style={{
-          fontSize: '10px',
-        }}
-      >
-        <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
-      </pre>
-    ),
-    []
+    ({ row }) => {
+      return (
+        <pre
+          style={{
+            fontSize: '10px',
+          }}
+        >
+          <code>{JSON.stringify({ values: data[row.index] }, null, 2)}</code>
+        </pre>
+      );
+    },
+    [data]
   );
 
   return (
@@ -179,7 +181,7 @@ const UserTable = ({
           })}
         </tbody>
       </table>
-      <div className="mt-4">
+      <div className="mt-4 pb-4">
         <button
           className="btn btn-square btn-xs"
           onClick={() => gotoPage(0)}
@@ -213,18 +215,6 @@ const UserTable = ({
           <strong>
             {pageIndex + 1} od {pageOptions.length}
           </strong>{' '}
-        </span>
-        <span>
-          | Idi na stranicu:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const newPage = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(newPage);
-            }}
-            style={{ width: '100px' }}
-          />
         </span>{' '}
         <select
           value={pageSize}
