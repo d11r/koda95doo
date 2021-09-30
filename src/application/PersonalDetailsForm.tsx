@@ -138,7 +138,7 @@ const PersonalDetailsForm = (props: {
               fontSize: '1rem',
             }}
             alwaysDefaultMask={false}
-            masks={{ ba: '.. ... ...', rs: '.. ... .. ..' }}
+            masks={{ rs: '.. ... .. ..' }}
             placeholder="Koristićemo ovaj broj da te kontaktiramo"
             country="ba"
           />
