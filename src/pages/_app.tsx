@@ -7,11 +7,8 @@ import { resetIdCounter } from 'react-tabs';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-phone-input-2/lib/style.css';
 import '../styles/main.css';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { AuthContext } from './panel';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [user, setUser] = useLocalStorage('KODA95DOO_USER', null);
   resetIdCounter();
   const mountedRef = React.useRef(false);
   React.useEffect(() => {
@@ -38,11 +35,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     }
   });
 
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <Component {...pageProps} />
-    </AuthContext.Provider>
-  );
+  return <Component {...pageProps} />;
 };
 
 export default MyApp;
