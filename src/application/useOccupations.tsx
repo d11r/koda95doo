@@ -43,6 +43,7 @@ const occupations = [
   'Vozač Teretnog Vozila sa Prikolicom',
   'Zavarivač',
   'Zidar',
+  'Njegovatelj',
   'Drugo (navedi u opisu posla)',
 ];
 
