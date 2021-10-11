@@ -15,6 +15,9 @@ import {
   getDocs,
   DocumentData,
   QuerySnapshot,
+  doc,
+  increment,
+  updateDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -31,10 +34,19 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const APPLICATIONS_DB_NAME = 'job_applications';
+const SUBMISSION_COUNT_DB_NAME = 'submission_count';
 
 const post = async (submissionData: any) => {
   try {
     await addDoc(collection(firestore, APPLICATIONS_DB_NAME), submissionData);
+    const countRef = doc(
+      firestore,
+      SUBMISSION_COUNT_DB_NAME,
+      'EG2EMKKRakl2f2TifJZO'
+    );
+    await updateDoc(countRef, {
+      count: increment(1),
+    });
     return true;
   } catch (e: any) {
     return false;
