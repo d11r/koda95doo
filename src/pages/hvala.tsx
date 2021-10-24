@@ -15,9 +15,8 @@ const ThanksPage = () => (
             <Checkmark />
             <h3 className="text-xl md:text-2xl mt-4 mb-4">Uspješna prijava!</h3>
             <p className="text-md md:text-xl text-gray-600 text-center">
-              Hvala! Zapremili smo tvoju prijavu. E-mail će ti uskoro stići sa
-              potvrdom svih detalja. Kada se prilika ukaže, javićemo ti putem
-              br. telefona ili e-pošte.
+              Hvala! Zapremili smo tvoju prijavu. Kada se prilika ukaže,
+              javićemo ti putem br. telefona ili e-pošte.
             </p>
           </div>
         </div>
