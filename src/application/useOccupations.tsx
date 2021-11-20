@@ -7,6 +7,7 @@ const occupations = [
   'Automehaničar',
   'Betonirac',
   'Bravar',
+  'Konobar',
   'Dizajner',
   'Električar Održavanja',
   'Elektroinstalater',
