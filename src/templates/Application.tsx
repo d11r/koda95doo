@@ -109,7 +109,7 @@ const Application = () => {
         // 2nd page
         occupation: occupation.value,
         education: education.value,
-        years_of_experience: workExperience.yoe.value,
+        years_of_experience: Number(workExperience.yoe.value),
         currently_employed: workExperience.employed.value,
         'previous-job-desc': workExperience.exp.value,
         // 3rd page
