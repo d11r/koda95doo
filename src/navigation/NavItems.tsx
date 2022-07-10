@@ -24,6 +24,7 @@ const NavItems = ({ topHeader }: { topHeader?: boolean }) => (
       </li>
     )}
 
+    {/* 
     {!topHeader && (
       <li>
         <Link href="https://www.freeprivacypolicy.com/live/6ef84ffa-8497-4d08-a9b2-29c9e56d6f02">
@@ -33,6 +34,7 @@ const NavItems = ({ topHeader }: { topHeader?: boolean }) => (
         </Link>
       </li>
     )}
+    */}
   </>
 );
 
