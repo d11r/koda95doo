@@ -16,7 +16,7 @@ const NavItems = ({ topHeader }: { topHeader?: boolean }) => (
     </li>
     {!topHeader && (
       <li>
-        <Link href="https://www.freeprivacypolicy.com/live/fa18c9b6-2d48-4e33-a922-6dee7818f449">
+        <Link href="https://www.kod95doo.com/privacy">
           <a target="_blank" rel="noopener noreferrer">
             Polisa privatnosti
           </a>
